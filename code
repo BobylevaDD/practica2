@@ -1,0 +1,546 @@
+#include <iostream>
+#include <iomanip>
+#include <windows.h>
+#include <fstream>
+#include <string>
+using namespace std;
+
+struct Rec {
+	int price{};
+	string service;
+	string master;
+	struct Data {
+		int day{};
+		int month{};
+		int year{};
+	}data;
+	int time{};
+	string clientsName;
+	int clientsNumber{};
+};
+
+Rec records2;
+Rec records_bin;
+
+int correct_value() {
+	int n{};
+	bool flag{};
+	do {
+		flag = false;
+		if ((cin >> n).fail()) {
+			cin.clear();
+			cin.ignore();
+			cout << "Вы ввели некорректное значение,попробуйте снова:" << endl;
+			flag = true;
+		}
+	} while (flag);
+	return n;
+}
+
+void zapolnenie(Rec* (&records), int& size) {
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	bool flag = true;
+	do {
+		flag = true;
+		cout << "Введите количество записей, которые вы бы хотели добавить в таблицу:" << endl;
+		size = correct_value();
+		if ((size >= 1) || cin.fail() || cin.peek() != '\n')
+			flag = false;
+		else {
+			cout << "Вы ввели некорректное значение,попробуйте снова:" << endl;
+		}
+	} while (flag);
+	system("cls");
+	records = new Rec[size];
+	for (int i = 0; i < size; i++) {
+		cout << "Введите услугу № " << i + 1 << " :" << endl;
+		cin >> records[i].service;
+		system("cls");
+		cout << "Введите цену:" << endl;
+		cin >> records[i].price;
+		system("cls");
+		cout << "Введите мастера:" << endl;
+		cin.clear();
+		cin >> records[i].master;
+		system("cls");
+		cout << "Введите дату (ДД/ММ/ГГ):" << endl;
+		cin.clear();
+		cin >> records[i].data.day;
+		cin.ignore();
+		cin >> records[i].data.month;
+		cin.ignore();
+		cin >> records[i].data.year;
+		system("cls");
+	    cout << "Введите время:" << endl;
+		cin.clear();
+		cin >> records[i].time;
+		system("cls");
+		cout << "Введите ФИО клиента:" << endl;
+		cin.clear();
+		cin >> records[i].clientsName;
+		system("cls");
+		cout << "Введите номер клиента:" << endl;
+		cin.clear();
+		cin >> records[i].clientsNumber;
+		system("cls");
+	}
+	cout << "Данные успешно добавлены" << endl << endl;
+}
+
+void printTabl(Rec* records, int& size) {
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	if (size == 0) {
+		cout << "В таблице нет данных о студентах" << endl;
+	}
+	else {
+		cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "|" << left << setw(5) << "ID" << "|" << left << setw(22) << "Услуга" << "|" << left << setw(15) << "Цена" << "|" << left << setw(22) << "ФИО мастера" << "|" << left << setw(15) << "ДД/ММ/ГГ" << "|" << left << setw(15) << "Час/мин." << "|" << left << setw(22) << "ФИО клиента" << "|" << left << setw(22) << "Номер телефона клиента" << "|" << endl;
+		cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		for (int i = 0; i < size; i++) {
+			cout << "|" << left << setw(5) << i + 1 << "|" << left << setw(22) << records[i].service << "|" << left << setw(15) << records[i].price << "|" << left << setw(22) << records[i].master << "|" << left << setw(15) << records[i].data.day << left << "/" << left << records[i].data.month << left << "/" << left << records[i].data.year  << left << "|" << left << setw(15) << records[i].time << "|" << left << setw(22) << records[i].clientsName << "|" << left << setw(22) << records[i].clientsNumber << "|" << endl;
+			cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		}
+	}
+}
+
+void dobavlenie(Rec* records, int& size) {
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	cout << "Введите услугу для " << size + 1 << " записи:" << endl;
+	cin >> records[size].service;
+	system("cls");
+	cout << "Введите цену:" << endl;
+	cin >> records[size].price;
+	system("cls");
+	cout << "Введите ФИО мастера:" << endl;
+	cin >> records[size].master;
+	system("cls");
+	cout << "Введите дату (ДД/ММ/ГГ):" << endl;
+	cin.clear();
+	cin >> records[size].data.day;
+	cin.ignore();
+	cin >> records[size].data.month;
+	cin.ignore();
+	cin >> records[size].data.year;
+	system("cls");
+	cout << "Введите время:" << endl;
+	cin.clear();
+	cin >> records[size].time;
+	system("cls");
+	cout << "Введите ФИО клиента:" << endl;
+	cin.clear();
+	cin >> records[size].clientsName;
+	system("cls");
+	cout << "Введите номер клиента:" << endl;
+	cin.clear();
+	cin >> records[size].clientsNumber;
+	system("cls");
+
+	size++;
+	system("cls");
+	cout << "Данные успешно добавлены" << endl << endl;
+}
+
+void izmenenie(Rec* records, int& size) {
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	bool flag = true;
+	int number_records{};
+	if (size == 0) {
+		system("cls");
+		cout << "В таблице нет записей" << endl << endl;
+	}
+	else {
+		printTabl(records, size);
+		do {
+			flag = true;
+			cout << "Введите номер записи, параметр, которой хотите изменить:" << endl;
+			number_records = correct_value();
+			if (number_records > 0 && number_records <= size)
+				flag = false;
+			else {
+				cout << "Вы ввели некорректное значение,попробуйте снова:" << endl;
+			}
+		} while (flag);
+		cout << endl;
+		cout << "Параметры изменения:" << endl;
+		cout << "1. Изменить мастера" << endl;
+		cout << "2. Изменить дату" << endl;
+		cout << "3. Изменить время" << endl;
+		int number_parametr{};
+		do {
+			flag = true;
+			cout << "Что вы хотите изменить:" << endl;
+			number_parametr = correct_value();
+			if (1 <= number_parametr && number_parametr <= 3)
+				flag = false;
+			else {
+				cout << "Вы ввели некорректное значение,попробуйте снова:" << endl;
+			}
+		} while (flag);
+		switch (number_parametr) {
+		case 1:
+			cout << "Введите мастера :" << endl;
+			cin >> records[number_records - 1].master;
+			break;
+		case 2:
+			cout << "Введите дату:" << endl;
+			cin >> records[number_records - 1].data.day;
+			cin.ignore();
+			cin >> records[number_records - 1].data.month;
+			cin.ignore();
+			cin >> records[number_records - 1].data.year;
+			break;
+		case 3:
+			cout << "Введите время:" << endl;
+			cin >> records[number_records - 1].time;
+			break;
+		}
+		system("cls");
+		cout << "Запись успешно изменена" << endl << endl;
+	}
+}
+
+void udalenie(Rec* records, int& size) {
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	printTabl(records, size);
+	int records_udalenie{};
+	if (size == 0) {
+		system("cls");
+		cout << "В таблице нет записей" << endl << endl;
+	}
+	else {
+		cout << "Введите номер записи, которую хотите удалить:" << endl;;
+		do {
+			records_udalenie = correct_value();
+			if (records_udalenie > 0 && records_udalenie <= size) {
+				system("cls");
+				break;
+			}
+			else {
+				cout << "Вы ввели некорректное значение попробуйте снова:" << endl;;
+			}
+		} while (records_udalenie);
+		system("cls");
+		for (int i = records_udalenie - 1; i < size - 1; i++) {
+			records[i] = records[i + 1];
+		}
+		size--;
+		system("cls");
+		cout << "Запись успешно удалена" << endl << endl;
+	}
+}
+
+void sort1(Rec* records, int size) {
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	int sort;
+	bool flag;
+	cout << "Сортировка:" << endl;
+	cout << "1 - По порядку" << endl;
+	cout << "2 - В обратном порядке" << endl << endl;
+	do {
+		flag = true;
+		cout << "Выберите вид сортировки:" << endl;;
+		sort = correct_value();
+		if (1 <= sort && sort <= 2)
+			flag = false;
+		else {
+			cout << "Вы ввели некоректное значение,попробуйте снова:" << endl;
+		}
+	} while (flag);
+	switch (sort) {
+	case 1:
+		for (int i = 0; i < size; i++) {
+			for (int j = i + 1; j < size; j++) {
+				if (records[i].price > records[j].price) {
+					records2 = records[i];
+					records[i] = records[j];
+					records[j] = records2;
+				}
+			}
+		}
+		system("cls");
+		cout << "Данные отсортированы по цене" << endl << endl;
+		break;
+	case 2:
+		for (int i = 0; i < size; i++) {
+			for (int j = i + 1; j < size; j++) {
+				if (records[i].price < records[j].price) {
+					records2 = records[i];
+					records[i] = records[j];
+					records[j] = records2;
+				}
+			}
+		}
+		system("cls");
+		cout << "Данные отсортированы по цене" << endl << endl;
+		break;
+	}
+}
+
+void sort2(Rec* records, int size) {
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	int sort;
+	bool flag;
+	cout << "Сортировка:" << endl;
+	cout << "1 - По порядку" << endl;
+	cout << "2 - В обратном порядке" << endl << endl;
+	do {
+		flag = true;
+		cout << "Выберите вид сортировки:" << endl;;
+		sort = correct_value();
+		if (1 <= sort && sort <= 2)
+			flag = false;
+		else {
+			cout << "Вы ввели некоректное значение,попробуйте снова:" << endl;
+		}
+	} while (flag);
+	switch (sort) {
+	case 1:
+		/*for (int i = 0; i < size; i++) {
+			for (int j = i + 1; j < size; j++) {
+				if (records[i].data > records[j].data) {
+					records2 = records[i];
+					records[i] = records[j];
+					records[j] = records2;
+				}
+			}
+		}
+		system("cls");
+		cout << "Данные отсортированы по дате" << endl << endl;
+		break;
+	case 2:
+		for (int i = 0; i < size; i++) {
+			for (int j = i + 1; j < size; j++) {
+				if (records[i].data < records[j].data) {
+					records2 = records[i];
+					records[i] = records[j];
+					records[j] = records2;
+				}
+			}
+		}*/
+		system("cls");
+		cout << "Данные отсортированы по дате" << endl << endl;
+		break;
+	}
+}
+
+void sort3(Rec* records, int size) {
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	int sort;
+	bool flag;
+	cout << "Сортировка:" << endl;
+	cout << "1 - По порядку" << endl;
+	cout << "2 - В обратном порядке" << endl << endl;
+	do {
+		flag = true;
+		cout << "Выберите вид сортировки:" << endl;;
+		sort = correct_value();
+		if (1 <= sort && sort <= 2)
+			flag = false;
+		else {
+			cout << "Вы ввели некоректное значение,попробуйте снова:" << endl;
+		}
+	} while (flag);
+	switch (sort) {
+	case 1:
+		for (int i = 0; i < size; i++) {
+			for (int j = i + 1; j < size; j++) {
+				if (records[i].time > records[j].time) {
+					records2 = records[i];
+					records[i] = records[j];
+					records[j] = records2;
+				}
+			}
+		}
+		system("cls");
+		cout << "Данные отсортированы по времени" << endl << endl;
+		break;
+	case 2:
+		for (int i = 0; i < size; i++) {
+			for (int j = i + 1; j < size; j++) {
+				if (records[i].time < records[j].time) {
+					records2 = records[i];
+					records[i] = records[j];
+					records[j] = records2;
+				}
+			}
+		}
+		system("cls");
+		cout << "Данные отсортированы по времени" << endl << endl;
+		break;
+	}
+}
+
+void sortirovka(Rec* records, int size) {
+	int sort;
+	bool flag;
+	if (size == 0) {
+		system("cls");
+		cout << "В таблице нет записей" << endl << endl;
+	}
+	else {
+		cout << "Сортировка:" << endl;
+		cout << "1 - По цене" << endl;
+		cout << "2 - По дате" << endl;
+		cout << "3 - По времени" << endl;
+		do {
+			flag = true;
+			cout << "Выберите вид сортировки:" << endl;;
+			sort = correct_value();
+			if (1 <= sort && sort <= 3)
+				flag = false;
+			else {
+				cout << "Вы ввели некоректное значение,попробуйте снова:" << endl;
+			}
+		} while (flag);
+		switch (sort) {
+		case 1:
+			system("cls");
+			sort1(records, size);
+			break;
+		case 2:
+			system("cls");
+			sort2(records, size);
+			break;
+		case 3:
+			system("cls");
+			sort3(records, size);
+			break;
+		}
+	}
+}
+
+void search(Rec* records, int size) {
+	cout << "В разработке...";
+}
+
+void in_txt_file(Rec* records, int size) {
+	ofstream fout;
+	fout.open("База данных.txt");
+	if (!fout.is_open())
+		cout << "Ошибка открытия файла" << endl << endl;
+	else {
+		system("cls");
+		cout << "Данные записаны в текстовый файл" << endl << endl;
+		fout << size << endl;
+		for (int i = 0; i < size; i++) {
+			fout << records[i].service << ' ' << records[i].price << ' '
+				<< records[i].master << ' ' << records[i].data.day << "/" << records[i].data.month << "/" << records[i].data.year << ' '
+				<< records[i].time << ' ' << records[i].clientsName << ' '
+				<< records[i].clientsNumber << ' ' << endl;
+		}
+	}
+	fout.close();
+}
+
+void from_txt_file(Rec* (&records), Rec* (&records_bin), int& size, int& size2) {
+	ifstream fin;
+	fin.open("База данных.txt");
+	if (!fin.is_open())
+		cout << "Ошибка открытия файла" << endl << endl;
+	else {
+		system("cls");
+		cout << "Данные данные загружены в базу данных" << endl << endl;
+		fin >> size2;
+		size = size2;
+		records = new Rec[size];
+		records_bin = new Rec[size2];
+		for (int i = 0; i < size; i++) {
+			fin >> records[i].service >> records[i].price
+				>> records[i].master >> records[i].data.day;
+			cin.ignore();
+			fin >> records[i].data.month;
+			cin.ignore();
+			fin >> records[i].data.year
+				>> records[i].time >> records[i].clientsName
+				>> records[i].clientsNumber;
+		}
+	}
+	fin.close();
+}
+
+int main() {
+	setlocale(LC_ALL, "Rus");
+	int size2{};
+	int size{};
+	Rec* records_bin = new Rec[size2];
+	Rec* records= new Rec[size];
+	int menu;
+	bool flag;
+			
+	system("cls");
+	do {
+		cout << "---------------------------------------------------" << endl;
+		cout << "Меню:" << endl;
+		cout << "---------------------------------------------------" << endl;
+		cout << "1 - Выйти из программы" << endl;
+		cout << "2 - Вывести таблицу с клиентами" << endl;
+		cout << "3 - Заполнить таблицу" << endl;
+		cout << "4 - Добавить новую запись в таблицу" << endl;
+		cout << "5 - Изменить данные в таблице" << endl;
+		cout << "6 - Удалить запись из таблицы" << endl;
+		cout << "7 - Поиск по пунктам" << endl;
+		cout << "8 - Выгрузка базы данных в текстовый файл" << endl;
+		cout << "9 - Загрузка базы данных из текстового файла" << endl;
+		cout << "---------------------------------------------------" << endl << endl;
+		do {
+			flag = true;
+			cout << "Что вы хотите сделать:" << endl;
+			cin.clear();
+			menu = correct_value();
+			if (1 <= menu && menu <= 9)
+				flag = false;
+			else {
+				cout << "Вы ввели некоректное значение,попробуйте снова:" << endl;
+			}
+		} while (flag);
+
+		switch (menu) {
+		case 1:
+			system("cls");
+			cout << "Вы вышли из программы" << endl;
+			exit(0);
+			break;
+		case 2:
+			system("cls");
+			printTabl(records, size);
+			break;
+		case 3:
+			system("cls");
+			zapolnenie(records, size);
+			break;
+		case 4: 
+			system("cls");
+			dobavlenie(records, size);
+			break;
+		case 5:
+			system("cls");
+			izmenenie(records, size);
+			break;
+		case 6:
+			system("cls");
+			udalenie(records, size);
+			break;
+		case 7:
+			system("cls");
+			search(records, size);
+			break;
+		case 8:
+			system("cls");
+			in_txt_file(records, size);
+			break;
+		case 9:
+			system("cls");
+			from_txt_file(records, records_bin, size, size2);
+			break;
+	
+		}
+	} while (menu != 0);
+}
