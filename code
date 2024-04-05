@@ -418,7 +418,105 @@ void sortirovka(Rec* records, int size) {
 }
 
 void search(Rec* records, int size) {
-	cout << "В разработке...";
+    int choice = 0;
+	cout << "По какому параметру Вы хотите осуществить поиск?" << endl;
+	cout << "По услуге, нажмите 1." << endl;
+	cout << "По мастеру, нажмите 2." << endl;
+	cout << "По дате, нажмите 3." << endl;
+	cout << "По времени, нажмите 4." << endl;
+	cout << "По клиенту, нажмите 5." << endl;
+	cout << "Ваш выбор: " << endl;
+	cin >> choice;
+
+	switch (choice) {
+		case 1:
+			string turn [7];
+			for (int i=0; i<size; i++){
+                turn [i] = records[i].service;
+			}
+			int num=0;
+			for(int k=0; k<size; k++) {
+			for (int i=0; i<size; i++) {
+                if ((turn[num] == turn[i]) and (i != num)){
+                    turn [i] = " ";
+                }
+			}
+			num++;
+			}
+			string finaleturn [100];
+			int coat=0;
+			for (int i=0; i< size; i++){
+                if (turn[i] != " "){
+                    finaleturn[coat] = turn[i];
+                    coat++;
+                }
+			}
+			cout << "Список услуг: " << endl;
+			for (int i=0; i <coat;i++){
+                cout << i+1 << ". " << finaleturn [i] << endl;
+			}
+			break;
+		/*case 2:
+			string turn [7];
+			for (int i=0; i<size; i++){
+                turn [i] = records[i].master;
+			}
+			int num=0;
+			for(int k=0; k<size; k++) {
+			for (int i=0; i<size; i++) {
+                if ((turn[num] == turn[i]) and (i != num)){
+                    turn [i] = " ";
+                }
+			}
+			num++;
+			}
+			string finaleturn [100];
+			int coat=0;
+			for (int i=0; i< size; i++){
+                if (turn[i] != " "){
+                    finaleturn[coat] = turn[i];
+                    coat++;
+                }
+			}
+			cout << "Список мастеров: " << endl;
+			for (int i=0; i <coat;i++){
+                cout << i+1 << ". " << finaleturn [i] << endl;
+			}
+			break;
+		case 3:
+			cout << "Это пока не работает ((((" << endl;
+			break;
+		case 4:
+			cout << "Это пока не работает ((((" << endl;
+			break;
+		case 5:
+			string turn [7];
+			for (int i=0; i<size; i++){
+                turn [i] = records[i].clientsName;
+			}
+			int num=0;
+			for(int k=0; k<size; k++) {
+			for (int i=0; i<size; i++) {
+                if ((turn[num] == turn[i]) and (i != num)){
+                    turn [i] = " ";
+                }
+			}
+			num++;
+			}
+			string finaleturn [100];
+			int coat=0;
+			for (int i=0; i< size; i++){
+                if (turn[i] != " "){
+                    finaleturn[coat] = turn[i];
+                    coat++;
+                }
+			}
+			cout << "Список клиентов: " << endl;
+			for (int i=0; i <coat;i++){
+                cout << i+1 << ". " << finaleturn [i] << endl;
+			}
+			break; */
+	}
 }
 
 void in_txt_file(Rec* records, int size) {
