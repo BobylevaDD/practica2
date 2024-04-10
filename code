@@ -418,7 +418,129 @@ void sortirovka(Rec* records, int size) {
 }
 
 void search(Rec* records, int size) {
-	cout << "В разработке...";
+	int choice = 0;
+cout << "Поиск по какому параметру Вы хотите осуществить?" << endl;
+cout << "1 - по услуге" << endl;
+cout << "2 - по мастеру" << endl;
+cout << "3 - по дате" << endl;
+cout << "4 - по времени" << endl;
+cout << "5 - по клиенту" << endl;
+cout << "Ваш выбор: " << endl;
+cin >> choice;
+string turn[100];
+string finaleturn[100];
+string variant;
+int num;
+int coat;
+
+switch (choice) {
+case 1:
+	for (int i = 0; i < size; i++) {
+		turn[i] = records[i].service;
+	}
+	num = 0;
+	for (int k = 0; k < size; k++) {
+		for (int i = 0; i < size; i++) {
+			if ((turn[num] == turn[i]) and (i != num)) {
+				turn[i] = " ";
+			}
+		}
+		num++;
+	}
+	coat = 0;
+	for (int i = 0; i < size; i++) {
+		if (turn[i] != " ") {
+			finaleturn[coat] = turn[i];
+			coat++;
+		}
+	}
+	cout << "Список услуг: " << endl;
+	for (int i = 0; i < coat; i++) {
+		cout << i + 1 << ". " << finaleturn[i] << endl;
+	}
+	cout << "Ваш выбор (введите цифру напротив услуги): ";
+	cin >> choice;
+	variant = finaleturn[choice];
+	for (int i = 0; i < size; i++) {
+		if (records[i].service == variant) {
+			cout << records[i].service << " " << records[i].master << " " << records[i].clientsName << " " << records[i].clientsNumber << endl;
+		}
+	} //ВАЖНО: СДЕЛАТЬ ВЫВОД ЗАПИСЕЙ В ВИДЕ ТАБЛИЦЫ!!!
+	break;
+case 2:
+	for (int i = 0; i < size; i++) {
+		turn[i] = records[i].master;
+	}
+	num = 0;
+	for (int k = 0; k < size; k++) {
+		for (int i = 0; i < size; i++) {
+			if ((turn[num] == turn[i]) and (i != num)) {
+				turn[i] = " ";
+			}
+		}
+		num++;
+	}
+	coat = 0;
+	for (int i = 0; i < size; i++) {
+		if (turn[i] != " ") {
+			finaleturn[coat] = turn[i];
+			coat++;
+		}
+	}
+	cout << "Список мастеров: " << endl;
+	for (int i = 0; i < coat; i++) {
+		cout << i + 1 << ". " << finaleturn[i] << endl;
+	}
+	cout << "Ваш выбор (введите цифру напротив мастера): ";
+	cin >> choice;
+	variant = finaleturn[choice];
+	for (int i = 0; i < size; i++) {
+		if (records[i].master == variant) {
+			cout << records[i].service << " " << records[i].master << " " << records[i].clientsName << " " << records[i].clientsNumber << endl;
+		}
+	} //ВАЖНО: СДЕЛАТЬ ВЫВОД ЗАПИСЕЙ В ВИДЕ ТАБЛИЦЫ
+	break;
+case 3:
+	cout << "Это пока не работает!!! ((((" << endl;
+	break;
+case 4:
+	cout << "Это пока не работает!!! ((((" << endl;
+	break;
+case 5:
+	for (int i = 0; i < size; i++) {
+		turn[i] = records[i].clientsName;
+	}
+	num = 0;
+	for (int k = 0; k < size; k++) {
+		for (int i = 0; i < size; i++) {
+			if ((turn[num] == turn[i]) and (i != num)) {
+				turn[i] = " ";
+			}
+		}
+		num++;
+	}
+	coat = 0;
+	for (int i = 0; i < size; i++) {
+		if (turn[i] != " ") {
+			finaleturn[coat] = turn[i];
+			coat++;
+		}
+	}
+	cout << "Список клиентов: " << endl;
+	for (int i = 0; i < coat; i++) {
+		cout << i + 1 << ". " << finaleturn[i] << endl;
+	}
+	cout << "Ваш выбор (введите цифру напротив клиента): ";
+	cin >> choice;
+	variant = finaleturn[choice];
+	cout << variant << endl;
+	for (int i = 0; i < size; i++) {
+		if (records[i].clientsName == variant) {
+			cout << records[i].service << " " << records[i].master << " " << records[i].clientsName << " " << records[i].clientsNumber << endl;
+		}
+	} //ВАЖНО: СДЕЛАТЬ ВЫВОД ЗАПИСЕЙ В ВИДЕ ТАБЛИЦЫ!!!
+		break;
+	}
 }
 
 void in_txt_file(Rec* records, int size) {
