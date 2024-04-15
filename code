@@ -1,4 +1,4 @@
-#include <iostream> //ala
+#include <iostream>
 #include <iomanip>
 #include <windows.h>
 #include <fstream>
@@ -29,7 +29,7 @@ int correct_value() {
 		flag = false;
 		if ((cin >> n).fail()) {
 			cin.clear();
-			cin.ignore();
+			cin.ignore(INT_MAX, '\n');
 			cout << "Вы ввели некорректное значение,попробуйте снова:" << endl;
 			flag = true;
 		}
@@ -56,9 +56,11 @@ void zapolnenie(Rec* (&records), int& size) {
 	for (int i = 0; i < size; i++) {
 		cout << "Введите услугу № " << i + 1 << " :" << endl;
 		cin >> records[i].service;
+		cin.ignore();
 		system("cls");
 		cout << "Введите цену:" << endl;
 		cin >> records[i].price;
+		cin.ignore();
 		system("cls");
 		cout << "Введите мастера:" << endl;
 		cin.clear();
@@ -71,18 +73,23 @@ void zapolnenie(Rec* (&records), int& size) {
 		cin >> records[i].data.month;
 		cin.ignore();
 		cin >> records[i].data.year;
+		cin.ignore();
 		system("cls");
 	    cout << "Введите время:" << endl;
+		cin.ignore();
 		cin.clear();
 		cin >> records[i].time;
+		cin.ignore();
 		system("cls");
 		cout << "Введите ФИО клиента:" << endl;
 		cin.clear();
 		cin >> records[i].clientsName;
 		system("cls");
 		cout << "Введите номер клиента:" << endl;
+		cin.ignore();
 		cin.clear();
 		cin >> records[i].clientsNumber;
+		cin.ignore();
 		system("cls");
 	}
 	cout << "Данные успешно добавлены" << endl << endl;
@@ -419,129 +426,130 @@ void sortirovka(Rec* records, int size) {
 
 void search(Rec* records, int size) {
 	int choice = 0;
-cout << "Поиск по какому параметру Вы хотите осуществить?" << endl;
-cout << "1 - по услуге" << endl;
-cout << "2 - по мастеру" << endl;
-cout << "3 - по дате" << endl;
-cout << "4 - по времени" << endl;
-cout << "5 - по клиенту" << endl;
-cout << "Ваш выбор: " << endl;
-cin >> choice;
-string turn[100];
-string finaleturn[100];
-string variant;
-int num;
-int coat;
+	cout << "Поиск по какому параметру Вы хотите осуществить?" << endl;
+	cout << "1 - по услуге" << endl;
+	cout << "2 - по мастеру" << endl;
+	cout << "3 - по дате" << endl;
+	cout << "4 - по времени" << endl;
+	cout << "5 - по клиенту" << endl;
+	cout << "Ваш выбор: " << endl;
+	cin >> choice;
+	string turn[100];
+	string finaleturn[100];
+	string variant;
+	int num;
+	int coat;
 
-switch (choice) {
-case 1:
-	for (int i = 0; i < size; i++) {
-		turn[i] = records[i].service;
-	}
-	num = 0;
-	for (int k = 0; k < size; k++) {
-		for (int i = 0; i < size; i++) {
-			if ((turn[num] == turn[i]) and (i != num)) {
-				turn[i] = " ";
+	switch (choice) {
+		case 1: {
+			string serviceToSearch;
+			cout << "Введите название услуги для поиска: ";
+			cin.ignore();
+			getline(cin, serviceToSearch);
+
+			cout << "Результаты поиска по услуге '" << serviceToSearch << "':" << endl;
+			for (int i = 0; i < size; i++) {
+				if (records[i].service == serviceToSearch) {
+					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+					cout << "|" << left << setw(5) << "ID" << "|" << left << setw(22) << "Услуга" << "|" << left << setw(15) << "Цена" << "|" << left << setw(22) << "ФИО мастера" << "|" << left << setw(15) << "ДД/ММ/ГГ" << "|" << left << setw(15) << "Час/мин." << "|" << left << setw(22) << "ФИО клиента" << "|" << left << setw(22) << "Номер телефона клиента" << "|" << endl;
+					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+					for (int i = 0; i < size; i++) {
+						cout << "|" << left << setw(5) << i + 1 << "|" << left << setw(22) << records[i].service << "|" << left << setw(15) << records[i].price << "|" << left << setw(22) << records[i].master << "|" << left << setw(15) << records[i].data.day << left << "/" << left << records[i].data.month << left << "/" << left << records[i].data.year << left << "|" << left << setw(15) << records[i].time << "|" << left << setw(22) << records[i].clientsName << "|" << left << setw(22) << records[i].clientsNumber << "|" << endl;
+						cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+					}
+				}
 			}
+			sortirovka (records, size);
+			break;
 		}
-		num++;
-	}
-	coat = 0;
-	for (int i = 0; i < size; i++) {
-		if (turn[i] != " ") {
-			finaleturn[coat] = turn[i];
-			coat++;
-		}
-	}
-	cout << "Список услуг: " << endl;
-	for (int i = 0; i < coat; i++) {
-		cout << i + 1 << ". " << finaleturn[i] << endl;
-	}
-	cout << "Ваш выбор (введите цифру напротив услуги): ";
-	cin >> choice;
-	variant = finaleturn[choice];
-	for (int i = 0; i < size; i++) {
-		if (records[i].service == variant) {
-			cout << records[i].service << " " << records[i].master << " " << records[i].clientsName << " " << records[i].clientsNumber << endl;
-		}
-	} //ВАЖНО: СДЕЛАТЬ ВЫВОД ЗАПИСЕЙ В ВИДЕ ТАБЛИЦЫ!!!
-	break;
-case 2:
-	for (int i = 0; i < size; i++) {
-		turn[i] = records[i].master;
-	}
-	num = 0;
-	for (int k = 0; k < size; k++) {
-		for (int i = 0; i < size; i++) {
-			if ((turn[num] == turn[i]) and (i != num)) {
-				turn[i] = " ";
+		case 2: {
+			string masterToSearch;
+			cout << "Введите имя мастера для поиска: ";
+			cin.ignore();
+			getline(cin, masterToSearch);
+
+			cout << "Результаты поиска по мастеру '" << masterToSearch << "':" << endl;
+			for (int i = 0; i < size; i++) {
+				if (records[i].master == masterToSearch) {
+					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+					cout << "|" << left << setw(5) << "ID" << "|" << left << setw(22) << "Услуга" << "|" << left << setw(15) << "Цена" << "|" << left << setw(22) << "ФИО мастера" << "|" << left << setw(15) << "ДД/ММ/ГГ" << "|" << left << setw(15) << "Час/мин." << "|" << left << setw(22) << "ФИО клиента" << "|" << left << setw(22) << "Номер телефона клиента" << "|" << endl;
+					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+					for (int i = 0; i < size; i++) {
+						cout << "|" << left << setw(5) << i + 1 << "|" << left << setw(22) << records[i].service << "|" << left << setw(15) << records[i].price << "|" << left << setw(22) << records[i].master << "|" << left << setw(15) << records[i].data.day << left << "/" << left << records[i].data.month << left << "/" << left << records[i].data.year << left << "|" << left << setw(15) << records[i].time << "|" << left << setw(22) << records[i].clientsName << "|" << left << setw(22) << records[i].clientsNumber << "|" << endl;
+						cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+					}
+				}
 			}
+			sortirovka(records, size);
+			break;
 		}
-		num++;
-	}
-	coat = 0;
-	for (int i = 0; i < size; i++) {
-		if (turn[i] != " ") {
-			finaleturn[coat] = turn[i];
-			coat++;
-		}
-	}
-	cout << "Список мастеров: " << endl;
-	for (int i = 0; i < coat; i++) {
-		cout << i + 1 << ". " << finaleturn[i] << endl;
-	}
-	cout << "Ваш выбор (введите цифру напротив мастера): ";
-	cin >> choice;
-	variant = finaleturn[choice];
-	for (int i = 0; i < size; i++) {
-		if (records[i].master == variant) {
-			cout << records[i].service << " " << records[i].master << " " << records[i].clientsName << " " << records[i].clientsNumber << endl;
-		}
-	} //ВАЖНО: СДЕЛАТЬ ВЫВОД ЗАПИСЕЙ В ВИДЕ ТАБЛИЦЫ
-	break;
-case 3:
-	cout << "Это пока не работает!!! ((((" << endl;
-	break;
-case 4:
-	cout << "Это пока не работает!!! ((((" << endl;
-	break;
-case 5:
-	for (int i = 0; i < size; i++) {
-		turn[i] = records[i].clientsName;
-	}
-	num = 0;
-	for (int k = 0; k < size; k++) {
-		for (int i = 0; i < size; i++) {
-			if ((turn[num] == turn[i]) and (i != num)) {
-				turn[i] = " ";
+		case 3: {
+			int dayToSearch, monthToSearch, yearToSearch;
+			cout << "Введите дату для поиска (ДД ММ ГГГГ): ";
+			cin >> dayToSearch >>monthToSearch >>yearToSearch;
+
+			cout << "Результаты поиска по дате '" << dayToSearch << "/" << monthToSearch << "/" << yearToSearch << "':" << endl;
+			for (int i = 0; i < size; i++) {
+				if (records[i].data.day == dayToSearch && records[i].data.month == monthToSearch && records[i].data.year == yearToSearch) {
+					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+					cout << "|" << left << setw(5) << "ID" << "|" << left << setw(22) << "Услуга" << "|" << left << setw(15) << "Цена" << "|" << left << setw(22) << "ФИО мастера" << "|" << left << setw(15) << "ДД/ММ/ГГ" << "|" << left << setw(15) << "Час/мин." << "|" << left << setw(22) << "ФИО клиента" << "|" << left << setw(22) << "Номер телефона клиента" << "|" << endl;
+					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+					for (int i = 0; i < size; i++) {
+						cout << "|" << left << setw(5) << i + 1 << "|" << left << setw(22) << records[i].service << "|" << left << setw(15) << records[i].price << "|" << left << setw(22) << records[i].master << "|" << left << setw(15) << records[i].data.day << left << "/" << left << records[i].data.month << left << "/" << left << records[i].data.year << left << "|" << left << setw(15) << records[i].time << "|" << left << setw(22) << records[i].clientsName << "|" << left << setw(22) << records[i].clientsNumber << "|" << endl;
+						cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+					}
+				}
 			}
+			sortirovka(records, size);
+			break;
 		}
-		num++;
-	}
-	coat = 0;
-	for (int i = 0; i < size; i++) {
-		if (turn[i] != " ") {
-			finaleturn[coat] = turn[i];
-			coat++;
+		case 4: {
+			string timeToSearch;
+			cout << "Введите время для поиска (чч:мм): ";
+			cin.ignore();
+			getline(cin, timeToSearch);
+
+			cout << "Результаты поиска по времени '" << timeToSearch << "':" << endl;
+			for (int i = 0; i < size; i++) {
+				if (records[i].time == timeToSearch) {
+					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+					cout << "|" << left << setw(5) << "ID" << "|" << left << setw(22) << "Услуга" << "|" << left << setw(15) << "Цена" << "|" << left << setw(22) << "ФИО мастера" << "|" << left << setw(15) << "ДД/ММ/ГГ" << "|" << left << setw(15) << "Час/мин." << "|" << left << setw(22) << "ФИО клиента" << "|" << left << setw(22) << "Номер телефона клиента" << "|" << endl;
+					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+					for (int i = 0; i < size; i++) {
+						cout << "|" << left << setw(5) << i + 1 << "|" << left << setw(22) << records[i].service << "|" << left << setw(15) << records[i].price << "|" << left << setw(22) << records[i].master << "|" << left << setw(15) << records[i].data.day << left << "/" << left << records[i].data.month << left << "/" << left << records[i].data.year << left << "|" << left << setw(15) << records[i].time << "|" << left << setw(22) << records[i].clientsName << "|" << left << setw(22) << records[i].clientsNumber << "|" << endl;
+						cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+					}
+				}
+			}
+			sortirovka(records, size);
+			break;
+		}
+		case 5: {
+			string clientToSearch;
+			cout << "Введите имя клиента для поиска: ";
+			cin.ignore();
+			getline(cin, clientToSearch);
+
+			cout << "Результаты поиска по клиенту '" << clientToSearch << "':" << endl;
+			for (int i = 0; i < size; i++) {
+				if (records[i].clientsName == clientToSearch) {
+					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+					cout << "|" << left << setw(5) << "ID" << "|" << left << setw(22) << "Услуга" << "|" << left << setw(15) << "Цена" << "|" << left << setw(22) << "ФИО мастера" << "|" << left << setw(15) << "ДД/ММ/ГГ" << "|" << left << setw(15) << "Час/мин." << "|" << left << setw(22) << "ФИО клиента" << "|" << left << setw(22) << "Номер телефона клиента" << "|" << endl;
+					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+					for (int i = 0; i < size; i++) {
+						cout << "|" << left << setw(5) << i + 1 << "|" << left << setw(22) << records[i].service << "|" << left << setw(15) << records[i].price << "|" << left << setw(22) << records[i].master << "|" << left << setw(15) << records[i].data.day << left << "/" << left << records[i].data.month << left << "/" << left << records[i].data.year << left << "|" << left << setw(15) << records[i].time << "|" << left << setw(22) << records[i].clientsName << "|" << left << setw(22) << records[i].clientsNumber << "|" << endl;
+						cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+					}
+				}
+			}
+			sortirovka(records, size);
+			break;
+		}
+		default:
+			cout << "Некорректный ввод" << endl;
+			break;
 		}
 	}
-	cout << "Список клиентов: " << endl;
-	for (int i = 0; i < coat; i++) {
-		cout << i + 1 << ". " << finaleturn[i] << endl;
-	}
-	cout << "Ваш выбор (введите цифру напротив клиента): ";
-	cin >> choice;
-	variant = finaleturn[choice];
-	cout << variant << endl;
-	for (int i = 0; i < size; i++) {
-		if (records[i].clientsName == variant) {
-			cout << records[i].service << " " << records[i].master << " " << records[i].clientsName << " " << records[i].clientsNumber << endl;
-		}
-	} //ВАЖНО: СДЕЛАТЬ ВЫВОД ЗАПИСЕЙ В ВИДЕ ТАБЛИЦЫ!!!
-		break;
-	}
-}
 
 void in_txt_file(Rec* records, int size) {
 	ofstream fout;
