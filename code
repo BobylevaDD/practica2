@@ -32,6 +32,9 @@ struct Rec {
 };
 
 Rec records2;
+string matrix [1000][14];
+string sortmatrix [1][14];
+int count=0;
 
 int correct_value() {
 	int n{};
@@ -159,7 +162,7 @@ void dobavlenie(Rec* (&records), int& size) {
 	size++;
 	Rec* buff = new Rec[size];
 	for (int i = 0; i < size - 1; i++)
-	{ 
+	{
 		buff[i] = records[i];
 	}
 	records = new Rec[size];
@@ -223,7 +226,7 @@ void dobavlenie(Rec* (&records), int& size) {
 		system("cls");
 
 		cout << "Запись успешно добавлена" << endl << endl;
-	
+
 }
 
 void izmenenie(Rec* records, int& size) {
@@ -323,7 +326,7 @@ void udalenie(Rec* records, int& size) {
 	}
 }
 
-void sort1(Rec* records, int size) {
+void sort1(int count, int size) {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	int sort;
@@ -343,35 +346,135 @@ void sort1(Rec* records, int size) {
 	} while (flag);
 	switch (sort) {
 	case 1:
-		for (int i = 0; i < size; i++) {
-			for (int j = i + 1; j < size; j++) {
-				if (records[i].price > records[j].price) {
-					records2 = records[i];
-					records[i] = records[j];
-					records[j] = records2;
+		for (int i = 0; i < count; i++) {
+			for (int j = i + 1; j < count; j++) {
+				if (matrix [1][i]  > matrix [1][j]) {
+					sortmatrix[0][0] = matrix[i][0];
+					sortmatrix[0][1] = matrix[i][1];
+					sortmatrix[0][2] = matrix[i][2];
+					sortmatrix[0][3] = matrix[i][3];
+					sortmatrix[0][4] = matrix[i][4];
+					sortmatrix[0][5] = matrix[i][5];
+					sortmatrix[0][6] = matrix[i][6];
+					sortmatrix[0][7] = matrix[i][7];
+					sortmatrix[0][8] = matrix[i][8];
+					sortmatrix[0][9] = matrix[i][9];
+					sortmatrix[0][10] = matrix[i][10];
+					sortmatrix[0][11] = matrix[i][11];
+					sortmatrix[0][12] = matrix[i][12];
+					sortmatrix[0][13] = matrix[i][13];
+
+					matrix[i][0] = matrix[j][0];
+					matrix[i][1] = matrix[j][1];
+					matrix[i][2] = matrix[j][2];
+					matrix[i][3] = matrix[j][3];
+					matrix[i][4] = matrix[j][4];
+					matrix[i][5] = matrix[j][5];
+					matrix[i][6] = matrix[j][6];
+					matrix[i][7] = matrix[j][7];
+					matrix[i][8] = matrix[j][8];
+					matrix[i][9] = matrix[j][9];
+					matrix[i][10] = matrix[j][10];
+					matrix[i][11] = matrix[j][11];
+					matrix[i][12] = matrix[j][12];
+					matrix[i][13] = matrix[j][13];
+
+					matrix[j][0] = sortmatrix[0][0];
+					matrix[j][1] = sortmatrix[0][1];
+					matrix[j][2] = sortmatrix[0][2];
+					matrix[j][3] = sortmatrix[0][3];
+					matrix[j][4] = sortmatrix[0][4];
+					matrix[j][5] = sortmatrix[0][5];
+					matrix[j][6] = sortmatrix[0][6];
+					matrix[j][7] = sortmatrix[0][7];
+					matrix[j][8] = sortmatrix[0][8];
+					matrix[j][9] = sortmatrix[0][9];
+					matrix[j][10] = sortmatrix[0][10];
+					matrix[j][11] = sortmatrix[0][11];
+					matrix[j][12] = sortmatrix[0][12];
+					matrix[j][13] = sortmatrix[0][13];
 				}
 			}
 		}
 		system("cls");
 		cout << "Данные отсортированы по цене" << endl << endl;
+		for (int i=0;i<count;i++){
+            cout << matrix [i][0] << " " << matrix [i][1] << " " << matrix [i][2] << " " << matrix [i][3] << " " << matrix [i][4] << " " << matrix [i][5] << " " << matrix [i][6]  << " " << matrix [i][7] << " " << matrix [i][8] << " " << matrix [i][9] << " " << matrix [i][10] << " " << matrix [i][11] << " " << matrix [i][11] << " " << matrix [i][12] << " " << matrix [i][13] << endl;
+		}
+		for (int i=0;i<count;i++){
+            for (int j=0;j<14;j++){
+                matrix [i][j] = '\0';
+            }
+		}
+		count =0;
 		break;
 	case 2:
-		for (int i = 0; i < size; i++) {
-			for (int j = i + 1; j < size; j++) {
-				if (records[i].price < records[j].price) {
-					records2 = records[i];
-					records[i] = records[j];
-					records[j] = records2;
+		for (int i = 0; i < count; i++) {
+			for (int j = i + 1; j < count; j++) {
+				if (matrix [1][i]  < matrix [1][j]) {
+					sortmatrix[0][0] = matrix[i][0];
+					sortmatrix[0][1] = matrix[i][1];
+					sortmatrix[0][2] = matrix[i][2];
+					sortmatrix[0][3] = matrix[i][3];
+					sortmatrix[0][4] = matrix[i][4];
+					sortmatrix[0][5] = matrix[i][5];
+					sortmatrix[0][6] = matrix[i][6];
+					sortmatrix[0][7] = matrix[i][7];
+					sortmatrix[0][8] = matrix[i][8];
+					sortmatrix[0][9] = matrix[i][9];
+					sortmatrix[0][10] = matrix[i][10];
+					sortmatrix[0][11] = matrix[i][11];
+					sortmatrix[0][12] = matrix[i][12];
+					sortmatrix[0][13] = matrix[i][13];
+
+					matrix[i][0] = matrix[j][0];
+					matrix[i][1] = matrix[j][1];
+					matrix[i][2] = matrix[j][2];
+					matrix[i][3] = matrix[j][3];
+					matrix[i][4] = matrix[j][4];
+					matrix[i][5] = matrix[j][5];
+					matrix[i][6] = matrix[j][6];
+					matrix[i][7] = matrix[j][7];
+					matrix[i][8] = matrix[j][8];
+					matrix[i][9] = matrix[j][9];
+					matrix[i][10] = matrix[j][10];
+					matrix[i][11] = matrix[j][11];
+					matrix[i][12] = matrix[j][12];
+					matrix[i][13] = matrix[j][13];
+
+					matrix[j][0] = sortmatrix[0][0];
+					matrix[j][1] = sortmatrix[0][1];
+					matrix[j][2] = sortmatrix[0][2];
+					matrix[j][3] = sortmatrix[0][3];
+					matrix[j][4] = sortmatrix[0][4];
+					matrix[j][5] = sortmatrix[0][5];
+					matrix[j][6] = sortmatrix[0][6];
+					matrix[j][7] = sortmatrix[0][7];
+					matrix[j][8] = sortmatrix[0][8];
+					matrix[j][9] = sortmatrix[0][9];
+					matrix[j][10] = sortmatrix[0][10];
+					matrix[j][11] = sortmatrix[0][11];
+					matrix[j][12] = sortmatrix[0][12];
+					matrix[j][13] = sortmatrix[0][13];
 				}
 			}
 		}
 		system("cls");
 		cout << "Данные отсортированы по цене" << endl << endl;
+		for (int i=0;i<count;i++){
+            cout << matrix [i][0] << " " << matrix [i][1] << " " << matrix [i][2] << " " << matrix [i][3] << " " << matrix [i][4] << " " << matrix [i][5] << " " << matrix [i][6]  << " " << matrix [i][7] << " " << matrix [i][8] << " " << matrix [i][9] << " " << matrix [i][10] << " " << matrix [i][11] << " " << matrix [i][11] << " " << matrix [i][12] << " " << matrix [i][13] << endl;
+		}
+        for (int i=0;i<count;i++){
+            for (int j=0;j<14;j++){
+                matrix [i][j] = '\0';
+            }
+		}
+		count =0;
 		break;
 	}
 }
 
-void sort2(Rec* records, int size) {
+void sort2(int count, int size) {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	int sort;
@@ -391,45 +494,145 @@ void sort2(Rec* records, int size) {
 	} while (flag);
 	switch (sort) {
 	case 1:
-		for (int i = 0; i < size; i++) {
-			for (int j = i + 1; j < size; j++) {
-				if (records[i].data.year > records[j].data.year ||
-					(records[i].data.year == records[j].data.year &&
-						(records[i].data.month > records[j].data.month ||
-							(records[i].data.month == records[j].data.month &&
-								records[i].data.day > records[j].data.day))))
+		for (int i = 0; i < count; i++) {
+			for (int j = i + 1; j < count; j++) {
+				if (matrix[i][7] > matrix[j][7] ||
+					(matrix[i][7] == matrix[j][7] &&
+						(matrix[i][6] > matrix[j][6] ||
+							(matrix[i][6] == matrix[j][6] &&
+								matrix[i][5] > matrix[i][5]))))
 				{
-					records2 = records[i];
-					records[i] = records[j];
-					records[j] = records2;
+					sortmatrix[0][0] = matrix[i][0];
+					sortmatrix[0][1] = matrix[i][1];
+					sortmatrix[0][2] = matrix[i][2];
+					sortmatrix[0][3] = matrix[i][3];
+					sortmatrix[0][4] = matrix[i][4];
+					sortmatrix[0][5] = matrix[i][5];
+					sortmatrix[0][6] = matrix[i][6];
+					sortmatrix[0][7] = matrix[i][7];
+					sortmatrix[0][8] = matrix[i][8];
+					sortmatrix[0][9] = matrix[i][9];
+					sortmatrix[0][10] = matrix[i][10];
+					sortmatrix[0][11] = matrix[i][11];
+					sortmatrix[0][12] = matrix[i][12];
+					sortmatrix[0][13] = matrix[i][13];
+
+					matrix[i][0] = matrix[j][0];
+					matrix[i][1] = matrix[j][1];
+					matrix[i][2] = matrix[j][2];
+					matrix[i][3] = matrix[j][3];
+					matrix[i][4] = matrix[j][4];
+					matrix[i][5] = matrix[j][5];
+					matrix[i][6] = matrix[j][6];
+					matrix[i][7] = matrix[j][7];
+					matrix[i][8] = matrix[j][8];
+					matrix[i][9] = matrix[j][9];
+					matrix[i][10] = matrix[j][10];
+					matrix[i][11] = matrix[j][11];
+					matrix[i][12] = matrix[j][12];
+					matrix[i][13] = matrix[j][13];
+
+					matrix[j][0] = sortmatrix[0][0];
+					matrix[j][1] = sortmatrix[0][1];
+					matrix[j][2] = sortmatrix[0][2];
+					matrix[j][3] = sortmatrix[0][3];
+					matrix[j][4] = sortmatrix[0][4];
+					matrix[j][5] = sortmatrix[0][5];
+					matrix[j][6] = sortmatrix[0][6];
+					matrix[j][7] = sortmatrix[0][7];
+					matrix[j][8] = sortmatrix[0][8];
+					matrix[j][9] = sortmatrix[0][9];
+					matrix[j][10] = sortmatrix[0][10];
+					matrix[j][11] = sortmatrix[0][11];
+					matrix[j][12] = sortmatrix[0][12];
+					matrix[j][13] = sortmatrix[0][13];
 				}
 			}
 		}
 		system("cls");
 		cout << "Данные отсортированы по дате с учетом дня, месяца и года" << endl << endl;
+		for (int i=0;i<count;i++){
+            cout << matrix [i][0] << " " << matrix [i][1] << " " << matrix [i][2] << " " << matrix [i][3] << " " << matrix [i][4] << " " << matrix [i][5] << " " << matrix [i][6]  << " " << matrix [i][7] << " " << matrix [i][8] << " " << matrix [i][9] << " " << matrix [i][10] << " " << matrix [i][11] << " " << matrix [i][11] << " " << matrix [i][12] << " " << matrix [i][13] << endl;
+		}
+        for (int i=0;i<count;i++){
+            for (int j=0;j<14;j++){
+                matrix [i][j] = '\0';
+            }
+		}
+		count =0;
 		break;
 	case 2:
-		for (int i = 0; i < size; i++) {
-			for (int j = i + 1; j < size; j++) {
-				if (records[i].data.year < records[j].data.year ||
-					(records[i].data.year == records[j].data.year &&
-						(records[i].data.month < records[j].data.month ||
-							(records[i].data.month == records[j].data.month &&
-								records[i].data.day < records[j].data.day))))
+		for (int i = 0; i < count; i++) {
+			for (int j = i + 1; j < count; j++) {
+				if (matrix[i][7] < matrix[j][7] ||
+					(matrix[i][7] == matrix[j][7] &&
+						(matrix[i][6] < matrix[j][6] ||
+							(matrix[i][6] == matrix[j][6] &&
+								matrix[i][5] < matrix[j][5]))))
 				{
-					records2 = records[i];
-					records[i] = records[j];
-					records[j] = records2;
+					sortmatrix[0][0] = matrix[i][0];
+					sortmatrix[0][1] = matrix[i][1];
+					sortmatrix[0][2] = matrix[i][2];
+					sortmatrix[0][3] = matrix[i][3];
+					sortmatrix[0][4] = matrix[i][4];
+					sortmatrix[0][5] = matrix[i][5];
+					sortmatrix[0][6] = matrix[i][6];
+					sortmatrix[0][7] = matrix[i][7];
+					sortmatrix[0][8] = matrix[i][8];
+					sortmatrix[0][9] = matrix[i][9];
+					sortmatrix[0][10] = matrix[i][10];
+					sortmatrix[0][11] = matrix[i][11];
+					sortmatrix[0][12] = matrix[i][12];
+					sortmatrix[0][13] = matrix[i][13];
+
+					matrix[i][0] = matrix[j][0];
+					matrix[i][1] = matrix[j][1];
+					matrix[i][2] = matrix[j][2];
+					matrix[i][3] = matrix[j][3];
+					matrix[i][4] = matrix[j][4];
+					matrix[i][5] = matrix[j][5];
+					matrix[i][6] = matrix[j][6];
+					matrix[i][7] = matrix[j][7];
+					matrix[i][8] = matrix[j][8];
+					matrix[i][9] = matrix[j][9];
+					matrix[i][10] = matrix[j][10];
+					matrix[i][11] = matrix[j][11];
+					matrix[i][12] = matrix[j][12];
+					matrix[i][13] = matrix[j][13];
+
+					matrix[j][0] = sortmatrix[0][0];
+					matrix[j][1] = sortmatrix[0][1];
+					matrix[j][2] = sortmatrix[0][2];
+					matrix[j][3] = sortmatrix[0][3];
+					matrix[j][4] = sortmatrix[0][4];
+					matrix[j][5] = sortmatrix[0][5];
+					matrix[j][6] = sortmatrix[0][6];
+					matrix[j][7] = sortmatrix[0][7];
+					matrix[j][8] = sortmatrix[0][8];
+					matrix[j][9] = sortmatrix[0][9];
+					matrix[j][10] = sortmatrix[0][10];
+					matrix[j][11] = sortmatrix[0][11];
+					matrix[j][12] = sortmatrix[0][12];
+					matrix[j][13] = sortmatrix[0][13];
 				}
 			}
 		}
 		system("cls");
 		cout << "Данные отсортированы по дате" << endl << endl;
+		for (int i=0;i<count;i++){
+            cout << matrix [i][0] << " " << matrix [i][1] << " " << matrix [i][2] << " " << matrix [i][3] << " " << matrix [i][4] << " " << matrix [i][5] << " " << matrix [i][6]  << " " << matrix [i][7] << " " << matrix [i][8] << " " << matrix [i][9] << " " << matrix [i][10] << " " << matrix [i][11] << " " << matrix [i][11] << " " << matrix [i][12] << " " << matrix [i][13] << endl;
+		}
+        for (int i=0;i<count;i++){
+            for (int j=0;j<14;j++){
+                matrix [i][j] = '\0';
+            }
+		}
+		count =0;
 		break;
 	}
 }
 
-void sort3(Rec* records, int size) {
+void sort3(int count, int size) {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	int sort;
@@ -449,36 +652,136 @@ void sort3(Rec* records, int size) {
 	} while (flag);
 	switch (sort) {
 	case 1:
-		for (int i = 0; i < size; i++) {
-			for (int j = i + 1; j < size; j++) {
-				if (records[i].time.hours > records[j].time.hours ||
-					(records[i].time.hours == records[j].time.hours && records[i].time.minutes > records[j].time.minutes)) {
-					Rec temp = records[i];
-					records[i] = records[j];
-					records[j] = temp;
+		for (int i = 0; i < count; i++) {
+			for (int j = i + 1; j < count; j++) {
+				if (matrix[i][8] > matrix[j][8] ||
+					(matrix[i][8] == matrix[j][8] && matrix[i][9] > matrix[j][9])) {
+					sortmatrix[0][0] = matrix[i][0];
+					sortmatrix[0][1] = matrix[i][1];
+					sortmatrix[0][2] = matrix[i][2];
+					sortmatrix[0][3] = matrix[i][3];
+					sortmatrix[0][4] = matrix[i][4];
+					sortmatrix[0][5] = matrix[i][5];
+					sortmatrix[0][6] = matrix[i][6];
+					sortmatrix[0][7] = matrix[i][7];
+					sortmatrix[0][8] = matrix[i][8];
+					sortmatrix[0][9] = matrix[i][9];
+					sortmatrix[0][10] = matrix[i][10];
+					sortmatrix[0][11] = matrix[i][11];
+					sortmatrix[0][12] = matrix[i][12];
+					sortmatrix[0][13] = matrix[i][13];
+
+					matrix[i][0] = matrix[j][0];
+					matrix[i][1] = matrix[j][1];
+					matrix[i][2] = matrix[j][2];
+					matrix[i][3] = matrix[j][3];
+					matrix[i][4] = matrix[j][4];
+					matrix[i][5] = matrix[j][5];
+					matrix[i][6] = matrix[j][6];
+					matrix[i][7] = matrix[j][7];
+					matrix[i][8] = matrix[j][8];
+					matrix[i][9] = matrix[j][9];
+					matrix[i][10] = matrix[j][10];
+					matrix[i][11] = matrix[j][11];
+					matrix[i][12] = matrix[j][12];
+					matrix[i][13] = matrix[j][13];
+
+					matrix[j][0] = sortmatrix[0][0];
+					matrix[j][1] = sortmatrix[0][1];
+					matrix[j][2] = sortmatrix[0][2];
+					matrix[j][3] = sortmatrix[0][3];
+					matrix[j][4] = sortmatrix[0][4];
+					matrix[j][5] = sortmatrix[0][5];
+					matrix[j][6] = sortmatrix[0][6];
+					matrix[j][7] = sortmatrix[0][7];
+					matrix[j][8] = sortmatrix[0][8];
+					matrix[j][9] = sortmatrix[0][9];
+					matrix[j][10] = sortmatrix[0][10];
+					matrix[j][11] = sortmatrix[0][11];
+					matrix[j][12] = sortmatrix[0][12];
+					matrix[j][13] = sortmatrix[0][13];
 				}
 			}
 		}
 		cout << "Данные отсортированы по времени" << endl << endl;
+		for (int i=0;i<count;i++){
+            cout << matrix [i][0] << " " << matrix [i][1] << " " << matrix [i][2] << " " << matrix [i][3] << " " << matrix [i][4] << " " << matrix [i][5] << " " << matrix [i][6]  << " " << matrix [i][7] << " " << matrix [i][8] << " " << matrix [i][9] << " " << matrix [i][10] << " " << matrix [i][11] << " " << matrix [i][11] << " " << matrix [i][12] << " " << matrix [i][13] << endl;
+		}
+        for (int i=0;i<count;i++){
+            for (int j=0;j<14;j++){
+                matrix [i][j] = '\0';
+            }
+		}
+		count =0;
 		break;
 	case 2:
-		for (int i = 0; i < size; i++) {
-			for (int j = i + 1; j < size; j++) {
-				if (records[i].time.hours < records[j].time.hours ||
-					(records[i].time.hours == records[j].time.hours && records[i].time.minutes < records[j].time.minutes)) {
-					Rec temp = records[i];
-					records[i] = records[j];
-					records[j] = temp;
+		for (int i = 0; i < count; i++) {
+			for (int j = i + 1; j < count; j++) {
+				if (matrix[i][8] < matrix[j][8] ||
+					(matrix[i][8] == matrix[j][8] && matrix[i][9] < matrix[j][9])) {
+					sortmatrix[0][0] = matrix[i][0];
+					sortmatrix[0][1] = matrix[i][1];
+					sortmatrix[0][2] = matrix[i][2];
+					sortmatrix[0][3] = matrix[i][3];
+					sortmatrix[0][4] = matrix[i][4];
+					sortmatrix[0][5] = matrix[i][5];
+					sortmatrix[0][6] = matrix[i][6];
+					sortmatrix[0][7] = matrix[i][7];
+					sortmatrix[0][8] = matrix[i][8];
+					sortmatrix[0][9] = matrix[i][9];
+					sortmatrix[0][10] = matrix[i][10];
+					sortmatrix[0][11] = matrix[i][11];
+					sortmatrix[0][12] = matrix[i][12];
+					sortmatrix[0][13] = matrix[i][13];
+
+					matrix[i][0] = matrix[j][0];
+					matrix[i][1] = matrix[j][1];
+					matrix[i][2] = matrix[j][2];
+					matrix[i][3] = matrix[j][3];
+					matrix[i][4] = matrix[j][4];
+					matrix[i][5] = matrix[j][5];
+					matrix[i][6] = matrix[j][6];
+					matrix[i][7] = matrix[j][7];
+					matrix[i][8] = matrix[j][8];
+					matrix[i][9] = matrix[j][9];
+					matrix[i][10] = matrix[j][10];
+					matrix[i][11] = matrix[j][11];
+					matrix[i][12] = matrix[j][12];
+					matrix[i][13] = matrix[j][13];
+
+					matrix[j][0] = sortmatrix[0][0];
+					matrix[j][1] = sortmatrix[0][1];
+					matrix[j][2] = sortmatrix[0][2];
+					matrix[j][3] = sortmatrix[0][3];
+					matrix[j][4] = sortmatrix[0][4];
+					matrix[j][5] = sortmatrix[0][5];
+					matrix[j][6] = sortmatrix[0][6];
+					matrix[j][7] = sortmatrix[0][7];
+					matrix[j][8] = sortmatrix[0][8];
+					matrix[j][9] = sortmatrix[0][9];
+					matrix[j][10] = sortmatrix[0][10];
+					matrix[j][11] = sortmatrix[0][11];
+					matrix[j][12] = sortmatrix[0][12];
+					matrix[j][13] = sortmatrix[0][13];
 				}
 			}
 		}
 		system("cls");
 		cout << "Данные отсортированы по времени" << endl << endl;
+		for (int i=0;i<count;i++){
+            cout << matrix [i][0] << " " << matrix [i][1] << " " << matrix [i][2] << " " << matrix [i][3] << " " << matrix [i][4] << " " << matrix [i][5] << " " << matrix [i][6]  << " " << matrix [i][7] << " " << matrix [i][8] << " " << matrix [i][9] << " " << matrix [i][10] << " " << matrix [i][11] << " " << matrix [i][11] << " " << matrix [i][12] << " " << matrix [i][13] << endl;
+		}
+        for (int i=0;i<count;i++){
+            for (int j=0;j<14;j++){
+                matrix [i][j] = '\0';
+            }
+		}
+		count =0;
 		break;
 	}
 }
 
-void sortirovka(Rec* records, int size) {
+void sortirovka(int count, int size) {
 	int sort;
 	bool flag;
 	if (size == 0) {
@@ -502,13 +805,13 @@ void sortirovka(Rec* records, int size) {
 		} while (flag);
 		switch (sort) {
 		case 1:
-			sort1(records, size);
+			sort1(count, size);
 			break;
 		case 2:
-			sort2(records, size);
+			sort2(count, size);
 			break;
 		case 3:
-			sort3(records, size);
+			sort3(count, size);
 			break;
 		}
 	}
@@ -554,6 +857,21 @@ void search(Rec* records, int size) {
 						<< left << setw(22) << records[i].clientsNumber << "|"
 						<< endl;
 					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+                matrix [count][0] = string (records[i].service);
+                matrix [count][1] = to_string (records[i].price);
+                matrix [count][2] = string (records[i].master.name);
+                matrix [count][3] = string (records[i].master.sername);
+                matrix [count][4] = string (records[i].master.patronymic);
+                matrix [count][5] = to_string (records[i].data.day);
+                matrix [count][6] = to_string (records[i].data.month);
+                matrix [count][7] = to_string (records[i].data.year);
+                matrix [count][8] = to_string (records[i].time.hours);
+                matrix [count][9] = to_string (records[i].time.minutes);
+                matrix [count][10] = string (records[i].client.name);
+                matrix [count][11] = string (records[i].client.sername);
+                matrix [count][12] = string (records[i].client.patronymic);
+                matrix [count][13] = string (records[i].clientsNumber);
+                count++;
 				}
 			}
 
@@ -561,7 +879,7 @@ void search(Rec* records, int size) {
 				system("cls");
 				cout << "Ничего не найдено" << endl;
 			}
-			sortirovka(records, size);
+			sortirovka(count, size);
 			break;
 		}
 		case 2: {
@@ -592,6 +910,21 @@ void search(Rec* records, int size) {
 						<< left << setw(22) << records[i].clientsNumber << "|"
 						<< endl;
 					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+                matrix [count][0] = string (records[i].service);
+                matrix [count][1] = to_string (records[i].price);
+                matrix [count][2] = string (records[i].master.name);
+                matrix [count][3] = string (records[i].master.sername);
+                matrix [count][4] = string (records[i].master.patronymic);
+                matrix [count][5] = to_string (records[i].data.day);
+                matrix [count][6] = to_string (records[i].data.month);
+                matrix [count][7] = to_string (records[i].data.year);
+                matrix [count][8] = to_string (records[i].time.hours);
+                matrix [count][9] = to_string (records[i].time.minutes);
+                matrix [count][10] = string (records[i].client.name);
+                matrix [count][11] = string (records[i].client.sername);
+                matrix [count][12] = string (records[i].client.patronymic);
+                matrix [count][13] = string (records[i].clientsNumber);
+                count++;
 				}
 			}
 
@@ -599,7 +932,7 @@ void search(Rec* records, int size) {
 				system("cls");
 				cout << "Ничего не найдено" << endl;
 			}
-			sortirovka(records, size);
+			sortirovka(count, size);
 			break;
 		}
 		case 3: {
@@ -634,7 +967,21 @@ void search(Rec* records, int size) {
 						<< left << setw(22) << records[i].clientsNumber << "|"
 						<< endl;
 					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-
+                matrix [count][0] = string (records[i].service);
+                matrix [count][1] = to_string (records[i].price);
+                matrix [count][2] = string (records[i].master.name);
+                matrix [count][3] = string (records[i].master.sername);
+                matrix [count][4] = string (records[i].master.patronymic);
+                matrix [count][5] = to_string (records[i].data.day);
+                matrix [count][6] = to_string (records[i].data.month);
+                matrix [count][7] = to_string (records[i].data.year);
+                matrix [count][8] = to_string (records[i].time.hours);
+                matrix [count][9] = to_string (records[i].time.minutes);
+                matrix [count][10] = string (records[i].client.name);
+                matrix [count][11] = string (records[i].client.sername);
+                matrix [count][12] = string (records[i].client.patronymic);
+                matrix [count][13] = string (records[i].clientsNumber);
+                count++;
 				}
 			}
 
@@ -642,7 +989,7 @@ void search(Rec* records, int size) {
 				system("cls");
 				cout << "Ничего не найдено" << endl;
 			}
-			sortirovka(records, size);
+			sortirovka(count, size);
 			break;
 		}
 		case 4: {
@@ -675,6 +1022,21 @@ void search(Rec* records, int size) {
 						<< left << setw(22) << records[i].clientsNumber << "|"
 						<< endl;
 					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+                matrix [count][0] = string (records[i].service);
+                matrix [count][1] = to_string (records[i].price);
+                matrix [count][2] = string (records[i].master.name);
+                matrix [count][3] = string (records[i].master.sername);
+                matrix [count][4] = string (records[i].master.patronymic);
+                matrix [count][5] = to_string (records[i].data.day);
+                matrix [count][6] = to_string (records[i].data.month);
+                matrix [count][7] = to_string (records[i].data.year);
+                matrix [count][8] = to_string (records[i].time.hours);
+                matrix [count][9] = to_string (records[i].time.minutes);
+                matrix [count][10] = string (records[i].client.name);
+                matrix [count][11] = string (records[i].client.sername);
+                matrix [count][12] = string (records[i].client.patronymic);
+                matrix [count][13] = string (records[i].clientsNumber);
+                count++;
 				}
 			}
 
@@ -682,7 +1044,7 @@ void search(Rec* records, int size) {
 				system("cls");
 				cout << "Ничего не найдено" << endl;
 			}
-			sortirovka(records, size);
+			sortirovka(count, size);
 			break;
 		}
 		case 5: {
@@ -713,6 +1075,21 @@ void search(Rec* records, int size) {
 						<< left << setw(22) << records[i].clientsNumber << "|"
 						<< endl;
 					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+                matrix [count][0] = string (records[i].service);
+                matrix [count][1] = to_string (records[i].price);
+                matrix [count][2] = string (records[i].master.name);
+                matrix [count][3] = string (records[i].master.sername);
+                matrix [count][4] = string (records[i].master.patronymic);
+                matrix [count][5] = to_string (records[i].data.day);
+                matrix [count][6] = to_string (records[i].data.month);
+                matrix [count][7] = to_string (records[i].data.year);
+                matrix [count][8] = to_string (records[i].time.hours);
+                matrix [count][9] = to_string (records[i].time.minutes);
+                matrix [count][10] = string (records[i].client.name);
+                matrix [count][11] = string (records[i].client.sername);
+                matrix [count][12] = string (records[i].client.patronymic);
+                matrix [count][13] = string (records[i].clientsNumber);
+                count++;
 				}
 			}
 
@@ -720,7 +1097,7 @@ void search(Rec* records, int size) {
 				system("cls");
 				cout << "Ничего не найдено" << endl;
 			}
-			sortirovka(records, size);
+			sortirovka(count, size);
 			break;
 		}
 		default:
@@ -794,7 +1171,7 @@ int main() {
 	Rec* array = new Rec[size2];
 	int menu;
 	bool flag;
-			
+
 	system("cls");
 	do {
 		cout << "---------------------------------------------------" << endl;
