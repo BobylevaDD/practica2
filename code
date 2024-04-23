@@ -9,7 +9,11 @@ using namespace std;
 struct Rec {
 	int price{};
 	string service;
-	string master;
+	struct Master {
+		string name{};
+		string sername{};
+		string patronymic{};
+	}master;
 	struct Data {
 		int day{};
 		int month{};
@@ -19,7 +23,11 @@ struct Rec {
 		int hours{};
 		int minutes{};
 	}time;
-	string clientsName;
+	struct Client {
+		string name{};
+		string sername{};
+		string patronymic{};
+	}client;
 	string clientsNumber;
 };
 
@@ -61,14 +69,21 @@ void zapolnenie(Rec* (&records), int& size) {
 		cin >> records[i].service;
 		cin.ignore();
 		system("cls");
+
 		cout << "Введите цену:" << endl;
 		cin >> records[i].price;
 		cin.ignore();
 		system("cls");
+
 		cout << "Введите мастера:" << endl;
 		cin.clear();
-		cin >> records[i].master;
+		cin >> records[i].master.name;
+		cin.ignore();
+		cin >> records[i].master.sername;
+		cin.ignore();
+		cin >> records[i].master.patronymic;
 		system("cls");
+
 		cout << "Введите дату (ДД/ММ/ГГ):" << endl;
 		cin.clear();
 		cin >> records[i].data.day;
@@ -78,6 +93,7 @@ void zapolnenie(Rec* (&records), int& size) {
 		cin >> records[i].data.year;
 		cin.ignore();
 		system("cls");
+
 		cout << "Введите время:" << endl;
 		cin.ignore();
 		cin.clear();
@@ -86,15 +102,22 @@ void zapolnenie(Rec* (&records), int& size) {
 		cin >> records[i].time.minutes;
 		system("cls");
 		cin.ignore();
+
 		cin.clear();
 		cout << "Введите ФИО клиента:" << endl;
 		cin.ignore();
 		cin.clear();
-		cin >> records[i].clientsName;
+		cin >> records[i].client.name;
+		cin.ignore();
+		cin >> records[i].client.sername;
+		cin.ignore();
+		cin >> records[i].client.patronymic;
 		system("cls");
+
 		cout << "Введите номер клиента:" << endl;
 		cin.ignore();
 		cin.clear();
+
 		cin >> records[i].clientsNumber;
 		cin.ignore();
 		system("cls");
@@ -116,13 +139,13 @@ void printTabl(Rec* records, int& size) {
 			cout << "|" << left << setw(5) << i + 1 << "|"
 				<< left << setw(22) << records[i].service << "|"
 				<< left << setw(15) << records[i].price << "|"
-				<< left << setw(22) << records[i].master << "|"
+				<< left << setw(22) << records[i].master.name + " " + records[i].master.sername + " " + records[i].master.patronymic << "|"
 				<< left << setw(2) << records[i].data.day << "/"
 				<< setw(2) << records[i].data.month << "/"
 				<< setw(9) << records[i].data.year << "|"
 				<< left  << setw(2) << records[i].time.hours << ":"
 				<< setw(12) << records[i].time.minutes << "|"
-				<< left << setw(22) << records[i].clientsName << "|"
+				<< left << setw(22) << records[i].client.name + " " + records[i].client.sername + " " + records[i].client.patronymic << "|"
 				<< left << setw(22) << records[i].clientsNumber << "|"
 				<< endl;
 			cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -158,7 +181,11 @@ void dobavlenie(Rec* (&records), int& size) {
 		cin.ignore();
 		cin.clear();
 		cout << "Введите ФИО мастера:" << endl;
-		cin >> records[size-1].master;
+		cin >> records[size - 1].master.name;
+		cin.ignore();
+		cin >> records[size - 1].master.sername;
+		cin.ignore();
+		cin >> records[size - 1].master.patronymic;
 		system("cls");
 
 		cin.ignore();
@@ -182,7 +209,11 @@ void dobavlenie(Rec* (&records), int& size) {
 		cin.ignore();
 		cin.clear();
 		cout << "Введите ФИО клиента:" << endl;
-		getline(cin, records[size-1].clientsName);
+		cin >> records[size-1].client.name;
+		cin.ignore();
+		cin >> records[size - 1].client.sername;
+		cin.ignore();
+		cin >> records[size - 1].client.patronymic;
 		system("cls");
 
 		cin.ignore();
@@ -235,7 +266,11 @@ void izmenenie(Rec* records, int& size) {
 		switch (number_parametr) {
 		case 1:
 			cout << "Введите мастера :" << endl;
-			cin >> records[number_records - 1].master;
+			cin >> records[number_records - 1].master.name;
+			cin.ignore();
+			cin >> records[number_records - 1].master.sername;
+			cin.ignore();
+			cin >> records[number_records - 1].master.patronymic;
 			break;
 		case 2:
 			cout << "Введите дату:" << endl;
@@ -509,13 +544,13 @@ void search(Rec* records, int size) {
 					cout << "|" << left << setw(5) << i + 1 << "|"
 						<< left << setw(22) << records[i].service << "|"
 						<< left << setw(15) << records[i].price << "|"
-						<< left << setw(22) << records[i].master << "|"
+						<< left << setw(22) << records[i].master.name << " " << records[i].master.sername << " " << records[i].master.patronymic << "|"
 						<< left << setw(2) << records[i].data.day << "/"
 						<< setw(2) << records[i].data.month << "/"
 						<< setw(9) << records[i].data.year << "|"
 						<< left << setw(2) << records[i].time.hours << ":"
 						<< setw(12) << records[i].time.minutes << "|"
-						<< left << setw(22) << records[i].clientsName << "|"
+						<< left << setw(22) << records[i].client.name << " " << records[i].client.sername << " " << records[i].client.patronymic << "|"
 						<< left << setw(22) << records[i].clientsNumber << "|"
 						<< endl;
 					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -547,13 +582,13 @@ void search(Rec* records, int size) {
 					cout << "|" << left << setw(5) << i + 1 << "|"
 						<< left << setw(22) << records[i].service << "|"
 						<< left << setw(15) << records[i].price << "|"
-						<< left << setw(22) << records[i].master << "|"
+						<< left << setw(22) << records[i].master.name << " " << records[i].master.sername << " " << records[i].master.patronymic << "|"
 						<< left << setw(2) << records[i].data.day << "/"
 						<< setw(2) << records[i].data.month << "/"
 						<< setw(9) << records[i].data.year << "|"
 						<< left << setw(2) << records[i].time.hours << ":"
 						<< setw(12) << records[i].time.minutes << "|"
-						<< left << setw(22) << records[i].clientsName << "|"
+						<< left << setw(22) << records[i].client.name << " " << records[i].client.sername << " " << records[i].client.patronymic << "|"
 						<< left << setw(22) << records[i].clientsNumber << "|"
 						<< endl;
 					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -589,13 +624,13 @@ void search(Rec* records, int size) {
 					cout << "|" << left << setw(5) << i + 1 << "|"
 						<< left << setw(22) << records[i].service << "|"
 						<< left << setw(15) << records[i].price << "|"
-						<< left << setw(22) << records[i].master << "|"
+						<< left << setw(22) << records[i].master.name << " " << records[i].master.sername << " " << records[i].master.patronymic << "|"
 						<< left << setw(2) << records[i].data.day << "/"
 						<< setw(2) << records[i].data.month << "/"
 						<< setw(9) << records[i].data.year << "|"
 						<< left << setw(2) << records[i].time.hours << ":"
 						<< setw(12) << records[i].time.minutes << "|"
-						<< left << setw(22) << records[i].clientsName << "|"
+						<< left << setw(22) << records[i].client.name << " " << records[i].client.sername << " " << records[i].client.patronymic << "|"
 						<< left << setw(22) << records[i].clientsNumber << "|"
 						<< endl;
 					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -630,13 +665,13 @@ void search(Rec* records, int size) {
 					cout << "|" << left << setw(5) << i + 1 << "|"
 						<< left << setw(22) << records[i].service << "|"
 						<< left << setw(15) << records[i].price << "|"
-						<< left << setw(22) << records[i].master << "|"
+						<< left << setw(22) << records[i].master.name << " " << records[i].master.sername << " " << records[i].master.patronymic << "|"
 						<< left << setw(2) << records[i].data.day << "/"
 						<< setw(2) << records[i].data.month << "/"
 						<< setw(9) << records[i].data.year << "|"
 						<< left << setw(2) << records[i].time.hours << ":"
 						<< setw(12) << records[i].time.minutes << "|"
-						<< left << setw(22) << records[i].clientsName << "|"
+						<< left << setw(22) << records[i].client.name << " " << records[i].client.sername << " " << records[i].client.patronymic << "|"
 						<< left << setw(22) << records[i].clientsNumber << "|"
 						<< endl;
 					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -668,13 +703,13 @@ void search(Rec* records, int size) {
 					cout << "|" << left << setw(5) << i + 1 << "|"
 						<< left << setw(22) << records[i].service << "|"
 						<< left << setw(15) << records[i].price << "|"
-						<< left << setw(22) << records[i].master << "|"
+						<< left << setw(22) << records[i].master.name << " " << records[i].master.sername << " " << records[i].master.patronymic << "|"
 						<< left << setw(2) << records[i].data.day << "/"
 						<< setw(2) << records[i].data.month << "/"
 						<< setw(9) << records[i].data.year << "|"
 						<< left << setw(2) << records[i].time.hours << ":"
 						<< setw(12) << records[i].time.minutes << "|"
-						<< left << setw(22) << records[i].clientsName << "|"
+						<< left << setw(22) << records[i].client.name << " " << records[i].client.sername << " " << records[i].client.patronymic << "|"
 						<< left << setw(22) << records[i].clientsNumber << "|"
 						<< endl;
 					cout << "---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -706,8 +741,8 @@ void in_txt_file(Rec* records, int size) {
 		fout << size << endl;
 		for (int i = 0; i < size; i++) {
 			fout << records[i].service << ' ' << records[i].price << ' '
-				<< records[i].master << ' ' << records[i].data.day << "/" << records[i].data.month << "/" << records[i].data.year << ' '
-				<< records[i].time.hours << ":" << records[i].time.minutes << ' ' << records[i].clientsName << ' '
+				<< records[i].master.name << " " << records[i].master.sername << " " << records[i].master.patronymic << ' ' << records[i].data.day << "/" << records[i].data.month << "/" << records[i].data.year << ' '
+				<< records[i].time.hours << ":" << records[i].time.minutes << ' ' << records[i].client.name << " " << records[i].client.sername << " " << records[i].client.patronymic << ' '
 				<< records[i].clientsNumber << ' ' << endl;
 		}
 	}
@@ -730,15 +765,22 @@ void from_txt_file(Rec* (&records), int& size) {
 		records = new Rec[size];
 		for (int i = 0; i < size; i++) {
 			fin >> records[i].service >> records[i].price
-				>> records[i].master >> records[i].data.day;
+				>> records[i].master.name;
+			fin.ignore();
+			fin >> records[i].master.sername;
+			fin.ignore();
+			fin >> records[i].master.patronymic >> records[i].data.day;
 			fin.ignore();
 			fin >> records[i].data.month;
 			fin.ignore();
 			fin >> records[i].data.year
 				>> records[i].time.hours;
 			fin.ignore();
-			fin >> records[i].time.minutes >> records[i].clientsName
-				>> records[i].clientsNumber;
+			fin >> records[i].time.minutes >> records[i].client.name;
+			fin.ignore();
+			fin >> records[i].client.sername;
+			fin.ignore();
+			fin >> records[i].client.patronymic >> records[i].clientsNumber;
 		}
 	}
 	fin.close();
