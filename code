@@ -32,6 +32,9 @@ struct Rec {
 };
 
 Rec records2;
+string matrix[1000][14];
+string sortmatrix[1][14];
+int count1 = 0;
 
 int correct_value() {
 	int n{};
@@ -114,7 +117,7 @@ void zapolnenie(Rec* (&records), int& size) {
 
 		cin.ignore();
 		cin.clear();
-		cout << "Введите дату (ДД/ММ/ГГ):" << endl;
+		cout << "Введите дату (ДД/ММ/ГГГГ):" << endl;
 		do {
 			records[i].data.day = correct_value();
 			cin.ignore();
@@ -218,7 +221,7 @@ void dobavlenie(Rec* (&records), int& size) {
 
 		cin.ignore();
 		cin.clear();
-		cout << "Введите дату (ДД/ММ/ГГ):" << endl;
+		cout << "Введите дату (ДД/ММ/ГГГГ):" << endl;
 		do {
 			records[size - 1].data.day = correct_value();
 			cin.ignore();
@@ -307,7 +310,7 @@ void izmenenie(Rec* records, int& size) {
 			break;
 		case 2:
 
-			cout << "Введите дату (ДД/ММ/ГГ):" << endl;
+			cout << "Введите дату (ДД/ММ/ГГГГ):" << endl;
 			do {
 				records[number_records - 1].data.day = correct_value();
 				cin.ignore();
@@ -362,7 +365,7 @@ void udalenie(Rec* records, int& size) {
 	}
 }
 
-void sort1(Rec* records, int size) {
+void sort1(int count, int size) {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	int sort;
@@ -381,36 +384,168 @@ void sort1(Rec* records, int size) {
 		}
 	} while (flag);
 	switch (sort) {
-	case 1:
-		for (int i = 0; i < size; i++) {
-			for (int j = i + 1; j < size; j++) {
-				if (records[i].price > records[j].price) {
-					records2 = records[i];
-					records[i] = records[j];
-					records[j] = records2;
+	case 1: {
+		for (int i = 0; i < count; i++) {
+			for (int j = i + 1; j < count; j++) {
+				if (matrix[1][i] > matrix[1][j]) {
+					sortmatrix[0][0] = matrix[i][0];
+					sortmatrix[0][1] = matrix[i][1];
+					sortmatrix[0][2] = matrix[i][2];
+					sortmatrix[0][3] = matrix[i][3];
+					sortmatrix[0][4] = matrix[i][4];
+					sortmatrix[0][5] = matrix[i][5];
+					sortmatrix[0][6] = matrix[i][6];
+					sortmatrix[0][7] = matrix[i][7];
+					sortmatrix[0][8] = matrix[i][8];
+					sortmatrix[0][9] = matrix[i][9];
+					sortmatrix[0][10] = matrix[i][10];
+					sortmatrix[0][11] = matrix[i][11];
+					sortmatrix[0][12] = matrix[i][12];
+					sortmatrix[0][13] = matrix[i][13];
+
+					matrix[i][0] = matrix[j][0];
+					matrix[i][1] = matrix[j][1];
+					matrix[i][2] = matrix[j][2];
+					matrix[i][3] = matrix[j][3];
+					matrix[i][4] = matrix[j][4];
+					matrix[i][5] = matrix[j][5];
+					matrix[i][6] = matrix[j][6];
+					matrix[i][7] = matrix[j][7];
+					matrix[i][8] = matrix[j][8];
+					matrix[i][9] = matrix[j][9];
+					matrix[i][10] = matrix[j][10];
+					matrix[i][11] = matrix[j][11];
+					matrix[i][12] = matrix[j][12];
+					matrix[i][13] = matrix[j][13];
+
+					matrix[j][0] = sortmatrix[0][0];
+					matrix[j][1] = sortmatrix[0][1];
+					matrix[j][2] = sortmatrix[0][2];
+					matrix[j][3] = sortmatrix[0][3];
+					matrix[j][4] = sortmatrix[0][4];
+					matrix[j][5] = sortmatrix[0][5];
+					matrix[j][6] = sortmatrix[0][6];
+					matrix[j][7] = sortmatrix[0][7];
+					matrix[j][8] = sortmatrix[0][8];
+					matrix[j][9] = sortmatrix[0][9];
+					matrix[j][10] = sortmatrix[0][10];
+					matrix[j][11] = sortmatrix[0][11];
+					matrix[j][12] = sortmatrix[0][12];
+					matrix[j][13] = sortmatrix[0][13];
 				}
 			}
 		}
 		system("cls");
 		cout << "Данные отсортированы по цене" << endl << endl;
+		cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "|" << left << setw(5) << "ID" << "|" << left << setw(22) << "Услуга" << "|" << left << setw(15) << "Цена" << "|" << left << setw(35) << "ФИО мастера" << "|" << left << setw(15) << "ДД/ММ/ГГ" << "|" << left << setw(15) << "Час/мин." << "|" << left << setw(35) << "ФИО клиента" << "|" << left << setw(22) << "Номер телефона клиента" << "|" << endl;
+		cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		for (int i = 0; i < count; i++) {
+			cout << "|" << left << setw(5) << i + 1 << "|"
+				<< left << setw(22) << matrix[i][0] << "|"
+				<< left << setw(15) << matrix[i][1] << "|"
+				<< left << setw(35) << matrix[i][2] + " " + matrix[i][3] + " " + matrix[i][4] << "|"
+				<< left << setw(2) << matrix[i][5] << "/"
+				<< setw(2) << matrix[i][6] << "/"
+				<< setw(9) << matrix[i][7] << "|"
+				<< left << setw(2) << matrix[i][8] << ":"
+				<< setw(12) << matrix[i][9] << "|"
+				<< left << setw(35) << matrix[i][10] + " " + matrix[i][11] + " " + matrix[i][12] << "|"
+				<< left << setw(22) << matrix[i][13] << "|"
+				<< endl;
+			cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		}
+		for (int i = 0; i < count; i++) {
+			for (int j = 0; j < 14; j++) {
+				matrix[i][j] = '\0';
+			}
+		}
+		count = 0;
 		break;
-	case 2:
-		for (int i = 0; i < size; i++) {
-			for (int j = i + 1; j < size; j++) {
-				if (records[i].price < records[j].price) {
-					records2 = records[i];
-					records[i] = records[j];
-					records[j] = records2;
+	}
+	case 2: {
+		for (int i = 0; i < count; i++) {
+			for (int j = i + 1; j < count; j++) {
+				if (matrix[1][i] < matrix[1][j]) {
+					sortmatrix[0][0] = matrix[i][0];
+					sortmatrix[0][1] = matrix[i][1];
+					sortmatrix[0][2] = matrix[i][2];
+					sortmatrix[0][3] = matrix[i][3];
+					sortmatrix[0][4] = matrix[i][4];
+					sortmatrix[0][5] = matrix[i][5];
+					sortmatrix[0][6] = matrix[i][6];
+					sortmatrix[0][7] = matrix[i][7];
+					sortmatrix[0][8] = matrix[i][8];
+					sortmatrix[0][9] = matrix[i][9];
+					sortmatrix[0][10] = matrix[i][10];
+					sortmatrix[0][11] = matrix[i][11];
+					sortmatrix[0][12] = matrix[i][12];
+					sortmatrix[0][13] = matrix[i][13];
+
+					matrix[i][0] = matrix[j][0];
+					matrix[i][1] = matrix[j][1];
+					matrix[i][2] = matrix[j][2];
+					matrix[i][3] = matrix[j][3];
+					matrix[i][4] = matrix[j][4];
+					matrix[i][5] = matrix[j][5];
+					matrix[i][6] = matrix[j][6];
+					matrix[i][7] = matrix[j][7];
+					matrix[i][8] = matrix[j][8];
+					matrix[i][9] = matrix[j][9];
+					matrix[i][10] = matrix[j][10];
+					matrix[i][11] = matrix[j][11];
+					matrix[i][12] = matrix[j][12];
+					matrix[i][13] = matrix[j][13];
+
+					matrix[j][0] = sortmatrix[0][0];
+					matrix[j][1] = sortmatrix[0][1];
+					matrix[j][2] = sortmatrix[0][2];
+					matrix[j][3] = sortmatrix[0][3];
+					matrix[j][4] = sortmatrix[0][4];
+					matrix[j][5] = sortmatrix[0][5];
+					matrix[j][6] = sortmatrix[0][6];
+					matrix[j][7] = sortmatrix[0][7];
+					matrix[j][8] = sortmatrix[0][8];
+					matrix[j][9] = sortmatrix[0][9];
+					matrix[j][10] = sortmatrix[0][10];
+					matrix[j][11] = sortmatrix[0][11];
+					matrix[j][12] = sortmatrix[0][12];
+					matrix[j][13] = sortmatrix[0][13];
 				}
 			}
 		}
 		system("cls");
 		cout << "Данные отсортированы по цене" << endl << endl;
+		cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "|" << left << setw(5) << "ID" << "|" << left << setw(22) << "Услуга" << "|" << left << setw(15) << "Цена" << "|" << left << setw(35) << "ФИО мастера" << "|" << left << setw(15) << "ДД/ММ/ГГ" << "|" << left << setw(15) << "Час/мин." << "|" << left << setw(35) << "ФИО клиента" << "|" << left << setw(22) << "Номер телефона клиента" << "|" << endl;
+		cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		for (int i = 0; i < count; i++) {
+			cout << "|" << left << setw(5) << i + 1 << "|"
+				<< left << setw(22) << matrix[i][0] << "|"
+				<< left << setw(15) << matrix[i][1] << "|"
+				<< left << setw(35) << matrix[i][2] + " " + matrix[i][3] + " " + matrix[i][4] << "|"
+				<< left << setw(2) << matrix[i][5] << "/"
+				<< setw(2) << matrix[i][6] << "/"
+				<< setw(9) << matrix[i][7] << "|"
+				<< left << setw(2) << matrix[i][8] << ":"
+				<< setw(12) << matrix[i][9] << "|"
+				<< left << setw(35) << matrix[i][10] + " " + matrix[i][11] + " " + matrix[i][12] << "|"
+				<< left << setw(22) << matrix[i][13] << "|"
+				<< endl;
+			cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		}
+		for (int i = 0; i < count; i++) {
+			for (int j = 0; j < 14; j++) {
+				matrix[i][j] = '\0';
+			}
+		}
+		count = 0;
 		break;
+	}
 	}
 }
 
-void sort2(Rec* records, int size) {
+void sort2(int count, int size) {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	int sort;
@@ -429,46 +564,178 @@ void sort2(Rec* records, int size) {
 		}
 	} while (flag);
 	switch (sort) {
-	case 1:
-		for (int i = 0; i < size; i++) {
-			for (int j = i + 1; j < size; j++) {
-				if (records[i].data.year > records[j].data.year ||
-					(records[i].data.year == records[j].data.year &&
-						(records[i].data.month > records[j].data.month ||
-							(records[i].data.month == records[j].data.month &&
-								records[i].data.day > records[j].data.day))))
+	case 1: {
+		for (int i = 0; i < count; i++) {
+			for (int j = i + 1; j < count; j++) {
+				if (matrix[i][7] > matrix[j][7] ||
+					(matrix[i][7] == matrix[j][7] &&
+						(matrix[i][6] > matrix[j][6] ||
+							(matrix[i][6] == matrix[j][6] &&
+								matrix[i][5] > matrix[i][5]))))
 				{
-					records2 = records[i];
-					records[i] = records[j];
-					records[j] = records2;
+					sortmatrix[0][0] = matrix[i][0];
+					sortmatrix[0][1] = matrix[i][1];
+					sortmatrix[0][2] = matrix[i][2];
+					sortmatrix[0][3] = matrix[i][3];
+					sortmatrix[0][4] = matrix[i][4];
+					sortmatrix[0][5] = matrix[i][5];
+					sortmatrix[0][6] = matrix[i][6];
+					sortmatrix[0][7] = matrix[i][7];
+					sortmatrix[0][8] = matrix[i][8];
+					sortmatrix[0][9] = matrix[i][9];
+					sortmatrix[0][10] = matrix[i][10];
+					sortmatrix[0][11] = matrix[i][11];
+					sortmatrix[0][12] = matrix[i][12];
+					sortmatrix[0][13] = matrix[i][13];
+
+					matrix[i][0] = matrix[j][0];
+					matrix[i][1] = matrix[j][1];
+					matrix[i][2] = matrix[j][2];
+					matrix[i][3] = matrix[j][3];
+					matrix[i][4] = matrix[j][4];
+					matrix[i][5] = matrix[j][5];
+					matrix[i][6] = matrix[j][6];
+					matrix[i][7] = matrix[j][7];
+					matrix[i][8] = matrix[j][8];
+					matrix[i][9] = matrix[j][9];
+					matrix[i][10] = matrix[j][10];
+					matrix[i][11] = matrix[j][11];
+					matrix[i][12] = matrix[j][12];
+					matrix[i][13] = matrix[j][13];
+
+					matrix[j][0] = sortmatrix[0][0];
+					matrix[j][1] = sortmatrix[0][1];
+					matrix[j][2] = sortmatrix[0][2];
+					matrix[j][3] = sortmatrix[0][3];
+					matrix[j][4] = sortmatrix[0][4];
+					matrix[j][5] = sortmatrix[0][5];
+					matrix[j][6] = sortmatrix[0][6];
+					matrix[j][7] = sortmatrix[0][7];
+					matrix[j][8] = sortmatrix[0][8];
+					matrix[j][9] = sortmatrix[0][9];
+					matrix[j][10] = sortmatrix[0][10];
+					matrix[j][11] = sortmatrix[0][11];
+					matrix[j][12] = sortmatrix[0][12];
+					matrix[j][13] = sortmatrix[0][13];
 				}
 			}
 		}
 		system("cls");
 		cout << "Данные отсортированы по дате с учетом дня, месяца и года" << endl << endl;
-		break;
-	case 2:
-		for (int i = 0; i < size; i++) {
-			for (int j = i + 1; j < size; j++) {
-				if (records[i].data.year < records[j].data.year ||
-					(records[i].data.year == records[j].data.year &&
-						(records[i].data.month < records[j].data.month ||
-							(records[i].data.month == records[j].data.month &&
-								records[i].data.day < records[j].data.day))))
-				{
-					records2 = records[i];
-					records[i] = records[j];
-					records[j] = records2;
-				}
+		cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "|" << left << setw(5) << "ID" << "|" << left << setw(22) << "Услуга" << "|" << left << setw(15) << "Цена" << "|" << left << setw(35) << "ФИО мастера" << "|" << left << setw(15) << "ДД/ММ/ГГ" << "|" << left << setw(15) << "Час/мин." << "|" << left << setw(35) << "ФИО клиента" << "|" << left << setw(22) << "Номер телефона клиента" << "|" << endl;
+		cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		for (int i = 0; i < count; i++) {
+			cout << "|" << left << setw(5) << i + 1 << "|"
+				<< left << setw(22) << matrix[i][0] << "|"
+				<< left << setw(15) << matrix[i][1] << "|"
+				<< left << setw(35) << matrix[i][2] + " " + matrix[i][3] + " " + matrix[i][4] << "|"
+				<< left << setw(2) << matrix[i][5] << "/"
+				<< setw(2) << matrix[i][6] << "/"
+				<< setw(9) << matrix[i][7] << "|"
+				<< left << setw(2) << matrix[i][8] << ":"
+				<< setw(12) << matrix[i][9] << "|"
+				<< left << setw(35) << matrix[i][10] + " " + matrix[i][11] + " " + matrix[i][12] << "|"
+				<< left << setw(22) << matrix[i][13] << "|"
+				<< endl;
+			cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		}
+		for (int i = 0; i < count; i++) {
+			for (int j = 0; j < 14; j++) {
+				matrix[i][j] = '\0';
 			}
 		}
+		count = 0;
+		break;
+	}
+    case 2: {
+			for (int i = 0; i < count; i++) {
+				for (int j = i + 1; j < count; j++) {
+					if (matrix[i][7] < matrix[j][7] ||
+						(matrix[i][7] == matrix[j][7] &&
+							(matrix[i][6] < matrix[j][6] ||
+								(matrix[i][6] == matrix[j][6] &&
+									matrix[i][5] < matrix[j][5]))))
+					{
+						sortmatrix[0][0] = matrix[i][0];
+						sortmatrix[0][1] = matrix[i][1];
+						sortmatrix[0][2] = matrix[i][2];
+						sortmatrix[0][3] = matrix[i][3];
+						sortmatrix[0][4] = matrix[i][4];
+						sortmatrix[0][5] = matrix[i][5];
+						sortmatrix[0][6] = matrix[i][6];
+						sortmatrix[0][7] = matrix[i][7];
+						sortmatrix[0][8] = matrix[i][8];
+						sortmatrix[0][9] = matrix[i][9];
+						sortmatrix[0][10] = matrix[i][10];
+						sortmatrix[0][11] = matrix[i][11];
+						sortmatrix[0][12] = matrix[i][12];
+						sortmatrix[0][13] = matrix[i][13];
+
+						matrix[i][0] = matrix[j][0];
+						matrix[i][1] = matrix[j][1];
+						matrix[i][2] = matrix[j][2];
+						matrix[i][3] = matrix[j][3];
+						matrix[i][4] = matrix[j][4];
+						matrix[i][5] = matrix[j][5];
+						matrix[i][6] = matrix[j][6];
+						matrix[i][7] = matrix[j][7];
+						matrix[i][8] = matrix[j][8];
+						matrix[i][9] = matrix[j][9];
+						matrix[i][10] = matrix[j][10];
+						matrix[i][11] = matrix[j][11];
+						matrix[i][12] = matrix[j][12];
+						matrix[i][13] = matrix[j][13];
+
+						matrix[j][0] = sortmatrix[0][0];
+						matrix[j][1] = sortmatrix[0][1];
+						matrix[j][2] = sortmatrix[0][2];
+						matrix[j][3] = sortmatrix[0][3];
+						matrix[j][4] = sortmatrix[0][4];
+						matrix[j][5] = sortmatrix[0][5];
+						matrix[j][6] = sortmatrix[0][6];
+						matrix[j][7] = sortmatrix[0][7];
+						matrix[j][8] = sortmatrix[0][8];
+						matrix[j][9] = sortmatrix[0][9];
+						matrix[j][10] = sortmatrix[0][10];
+						matrix[j][11] = sortmatrix[0][11];
+						matrix[j][12] = sortmatrix[0][12];
+						matrix[j][13] = sortmatrix[0][13];
+					}
+				}
+			}
 		system("cls");
 		cout << "Данные отсортированы по дате" << endl << endl;
+		cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "|" << left << setw(5) << "ID" << "|" << left << setw(22) << "Услуга" << "|" << left << setw(15) << "Цена" << "|" << left << setw(35) << "ФИО мастера" << "|" << left << setw(15) << "ДД/ММ/ГГ" << "|" << left << setw(15) << "Час/мин." << "|" << left << setw(35) << "ФИО клиента" << "|" << left << setw(22) << "Номер телефона клиента" << "|" << endl;
+		cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		for (int i = 0; i < count; i++) {
+			cout << "|" << left << setw(5) << i + 1 << "|"
+				<< left << setw(22) << matrix[i][0] << "|"
+				<< left << setw(15) << matrix[i][1] << "|"
+				<< left << setw(35) << matrix[i][2] + " " + matrix[i][3] + " " + matrix[i][4] << "|"
+				<< left << setw(2) << matrix[i][5] << "/"
+				<< setw(2) << matrix[i][6] << "/"
+				<< setw(9) << matrix[i][7] << "|"
+				<< left << setw(2) << matrix[i][8] << ":"
+				<< setw(12) << matrix[i][9] << "|"
+				<< left << setw(35) << matrix[i][10] + " " + matrix[i][11] + " " + matrix[i][12] << "|"
+				<< left << setw(22) << matrix[i][13] << "|"
+				<< endl;
+			cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		}
+		for (int i = 0; i < count; i++) {
+			for (int j = 0; j < 14; j++) {
+				matrix[i][j] = '\0';
+			}
+		}
+		count = 0;
 		break;
+	    }
 	}
 }
 
-void sort3(Rec* records, int size) {
+void sort3(int count, int size) {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	int sort;
@@ -487,37 +754,169 @@ void sort3(Rec* records, int size) {
 		}
 	} while (flag);
 	switch (sort) {
-	case 1:
-		for (int i = 0; i < size; i++) {
-			for (int j = i + 1; j < size; j++) {
-				if (records[i].time.hours > records[j].time.hours ||
-					(records[i].time.hours == records[j].time.hours && records[i].time.minutes > records[j].time.minutes)) {
-					Rec temp = records[i];
-					records[i] = records[j];
-					records[j] = temp;
+	case 1: {
+		for (int i = 0; i < count; i++) {
+			for (int j = i + 1; j < count; j++) {
+				if (matrix[i][8] > matrix[j][8] ||
+					(matrix[i][8] == matrix[j][8] && matrix[i][9] > matrix[j][9])) {
+					sortmatrix[0][0] = matrix[i][0];
+					sortmatrix[0][1] = matrix[i][1];
+					sortmatrix[0][2] = matrix[i][2];
+					sortmatrix[0][3] = matrix[i][3];
+					sortmatrix[0][4] = matrix[i][4];
+					sortmatrix[0][5] = matrix[i][5];
+					sortmatrix[0][6] = matrix[i][6];
+					sortmatrix[0][7] = matrix[i][7];
+					sortmatrix[0][8] = matrix[i][8];
+					sortmatrix[0][9] = matrix[i][9];
+					sortmatrix[0][10] = matrix[i][10];
+					sortmatrix[0][11] = matrix[i][11];
+					sortmatrix[0][12] = matrix[i][12];
+					sortmatrix[0][13] = matrix[i][13];
+
+					matrix[i][0] = matrix[j][0];
+					matrix[i][1] = matrix[j][1];
+					matrix[i][2] = matrix[j][2];
+					matrix[i][3] = matrix[j][3];
+					matrix[i][4] = matrix[j][4];
+					matrix[i][5] = matrix[j][5];
+					matrix[i][6] = matrix[j][6];
+					matrix[i][7] = matrix[j][7];
+					matrix[i][8] = matrix[j][8];
+					matrix[i][9] = matrix[j][9];
+					matrix[i][10] = matrix[j][10];
+					matrix[i][11] = matrix[j][11];
+					matrix[i][12] = matrix[j][12];
+					matrix[i][13] = matrix[j][13];
+
+					matrix[j][0] = sortmatrix[0][0];
+					matrix[j][1] = sortmatrix[0][1];
+					matrix[j][2] = sortmatrix[0][2];
+					matrix[j][3] = sortmatrix[0][3];
+					matrix[j][4] = sortmatrix[0][4];
+					matrix[j][5] = sortmatrix[0][5];
+					matrix[j][6] = sortmatrix[0][6];
+					matrix[j][7] = sortmatrix[0][7];
+					matrix[j][8] = sortmatrix[0][8];
+					matrix[j][9] = sortmatrix[0][9];
+					matrix[j][10] = sortmatrix[0][10];
+					matrix[j][11] = sortmatrix[0][11];
+					matrix[j][12] = sortmatrix[0][12];
+					matrix[j][13] = sortmatrix[0][13];
 				}
 			}
 		}
 		cout << "Данные отсортированы по времени" << endl << endl;
+		cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "|" << left << setw(5) << "ID" << "|" << left << setw(22) << "Услуга" << "|" << left << setw(15) << "Цена" << "|" << left << setw(35) << "ФИО мастера" << "|" << left << setw(15) << "ДД/ММ/ГГ" << "|" << left << setw(15) << "Час/мин." << "|" << left << setw(35) << "ФИО клиента" << "|" << left << setw(22) << "Номер телефона клиента" << "|" << endl;
+		cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		for (int i = 0; i < count; i++) {
+			cout << "|" << left << setw(5) << i + 1 << "|"
+				<< left << setw(22) << matrix[i][0] << "|"
+				<< left << setw(15) << matrix[i][1] << "|"
+				<< left << setw(35) << matrix[i][2] + " " + matrix[i][3] + " " + matrix[i][4] << "|"
+				<< left << setw(2) << matrix[i][5] << "/"
+				<< setw(2) << matrix[i][6] << "/"
+				<< setw(9) << matrix[i][7] << "|"
+				<< left << setw(2) << matrix[i][8] << ":"
+				<< setw(12) << matrix[i][9] << "|"
+				<< left << setw(35) << matrix[i][10] + " " + matrix[i][11] + " " + matrix[i][12] << "|"
+				<< left << setw(22) << matrix[i][13] << "|"
+				<< endl;
+			cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		}
+		for (int i = 0; i < count; i++) {
+			for (int j = 0; j < 14; j++) {
+				matrix[i][j] = '\0';
+			}
+		}
+		count = 0;
 		break;
-	case 2:
-		for (int i = 0; i < size; i++) {
-			for (int j = i + 1; j < size; j++) {
-				if (records[i].time.hours < records[j].time.hours ||
-					(records[i].time.hours == records[j].time.hours && records[i].time.minutes < records[j].time.minutes)) {
-					Rec temp = records[i];
-					records[i] = records[j];
-					records[j] = temp;
+	}
+	case 2: {
+		for (int i = 0; i < count; i++) {
+			for (int j = i + 1; j < count; j++) {
+				if (matrix[i][8] < matrix[j][8] ||
+					(matrix[i][8] == matrix[j][8] && matrix[i][9] < matrix[j][9])) {
+					sortmatrix[0][0] = matrix[i][0];
+					sortmatrix[0][1] = matrix[i][1];
+					sortmatrix[0][2] = matrix[i][2];
+					sortmatrix[0][3] = matrix[i][3];
+					sortmatrix[0][4] = matrix[i][4];
+					sortmatrix[0][5] = matrix[i][5];
+					sortmatrix[0][6] = matrix[i][6];
+					sortmatrix[0][7] = matrix[i][7];
+					sortmatrix[0][8] = matrix[i][8];
+					sortmatrix[0][9] = matrix[i][9];
+					sortmatrix[0][10] = matrix[i][10];
+					sortmatrix[0][11] = matrix[i][11];
+					sortmatrix[0][12] = matrix[i][12];
+					sortmatrix[0][13] = matrix[i][13];
+
+					matrix[i][0] = matrix[j][0];
+					matrix[i][1] = matrix[j][1];
+					matrix[i][2] = matrix[j][2];
+					matrix[i][3] = matrix[j][3];
+					matrix[i][4] = matrix[j][4];
+					matrix[i][5] = matrix[j][5];
+					matrix[i][6] = matrix[j][6];
+					matrix[i][7] = matrix[j][7];
+					matrix[i][8] = matrix[j][8];
+					matrix[i][9] = matrix[j][9];
+					matrix[i][10] = matrix[j][10];
+					matrix[i][11] = matrix[j][11];
+					matrix[i][12] = matrix[j][12];
+					matrix[i][13] = matrix[j][13];
+
+					matrix[j][0] = sortmatrix[0][0];
+					matrix[j][1] = sortmatrix[0][1];
+					matrix[j][2] = sortmatrix[0][2];
+					matrix[j][3] = sortmatrix[0][3];
+					matrix[j][4] = sortmatrix[0][4];
+					matrix[j][5] = sortmatrix[0][5];
+					matrix[j][6] = sortmatrix[0][6];
+					matrix[j][7] = sortmatrix[0][7];
+					matrix[j][8] = sortmatrix[0][8];
+					matrix[j][9] = sortmatrix[0][9];
+					matrix[j][10] = sortmatrix[0][10];
+					matrix[j][11] = sortmatrix[0][11];
+					matrix[j][12] = sortmatrix[0][12];
+					matrix[j][13] = sortmatrix[0][13];
 				}
 			}
 		}
 		system("cls");
 		cout << "Данные отсортированы по времени" << endl << endl;
+		cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "|" << left << setw(5) << "ID" << "|" << left << setw(22) << "Услуга" << "|" << left << setw(15) << "Цена" << "|" << left << setw(35) << "ФИО мастера" << "|" << left << setw(15) << "ДД/ММ/ГГ" << "|" << left << setw(15) << "Час/мин." << "|" << left << setw(35) << "ФИО клиента" << "|" << left << setw(22) << "Номер телефона клиента" << "|" << endl;
+		cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		for (int i = 0; i < count; i++) {
+			cout << "|" << left << setw(5) << i + 1 << "|"
+				<< left << setw(22) << matrix[i][0] << "|"
+				<< left << setw(15) << matrix[i][1] << "|"
+				<< left << setw(35) << matrix[i][2] + " " + matrix[i][3] + " " + matrix[i][4] << "|"
+				<< left << setw(2) << matrix[i][5] << "/"
+				<< setw(2) << matrix[i][6] << "/"
+				<< setw(9) << matrix[i][7] << "|"
+				<< left << setw(2) << matrix[i][8] << ":"
+				<< setw(12) << matrix[i][9] << "|"
+				<< left << setw(35) << matrix[i][10] + " " + matrix[i][11] + " " + matrix[i][12] << "|"
+				<< left << setw(22) << matrix[i][13] << "|"
+				<< endl;
+			cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		}
+		for (int i = 0; i < count; i++) {
+			for (int j = 0; j < 14; j++) {
+				matrix[i][j] = '\0';
+			}
+		}
+		count = 0;
 		break;
+	}
 	}
 }
 
-void sortirovka(Rec* records, int size) {
+void sortirovka(int count, int size) {
 	int sort;
 	bool flag;
 	if (size == 0) {
@@ -541,13 +940,13 @@ void sortirovka(Rec* records, int size) {
 		} while (flag);
 		switch (sort) {
 		case 1:
-			sort1(records, size);
+			sort1(count, size);
 			break;
 		case 2:
-			sort2(records, size);
+			sort2(count, size);
 			break;
 		case 3:
-			sort3(records, size);
+			sort3(count, size);
 			break;
 		}
 	}
@@ -581,11 +980,6 @@ void search(Rec* records, int size) {
 			cin >> serviceToSearch;
 
 			bool found = false;
-			if (!found) {
-				system("cls");
-				cout << "Ничего не найдено" << endl;
-			}
-			else {
 				system("cls");
 				cout << "Результаты поиска по услуге '" << serviceToSearch << "':" << endl;
 				cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -597,21 +991,40 @@ void search(Rec* records, int size) {
 						cout << "|" << left << setw(5) << i + 1 << "|"
 							<< left << setw(22) << records[i].service << "|"
 							<< left << setw(15) << records[i].price << "|"
-							<< left << setw(35) << records[i].master.name << " " << records[i].master.sername << " " << records[i].master.patronymic << "|"
+							<< left << setw(35) << records[i].master.name + " " + records[i].master.sername + " " + records[i].master.patronymic << "|"
 							<< left << setw(2) << records[i].data.day << "/"
 							<< setw(2) << records[i].data.month << "/"
 							<< setw(9) << records[i].data.year << "|"
 							<< left << setw(2) << records[i].time.hours << ":"
 							<< setw(12) << records[i].time.minutes << "|"
-							<< left << setw(35) << records[i].client.name << " " << records[i].client.sername << " " << records[i].client.patronymic << "|"
+							<< left << setw(35) << records[i].client.name + " " + records[i].client.sername + " " + records[i].client.patronymic << "|"
 							<< left << setw(22) << records[i].clientsNumber << "|"
 							<< endl;
 						cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+						matrix[count1][0] = string(records[i].service);
+						matrix[count1][1] = to_string(records[i].price);
+						matrix[count1][2] = string(records[i].master.name);
+						matrix[count1][3] = string(records[i].master.sername);
+						matrix[count1][4] = string(records[i].master.patronymic);
+						matrix[count1][5] = to_string(records[i].data.day);
+						matrix[count1][6] = to_string(records[i].data.month);
+						matrix[count1][7] = to_string(records[i].data.year);
+						matrix[count1][8] = to_string(records[i].time.hours);
+						matrix[count1][9] = to_string(records[i].time.minutes);
+						matrix[count1][10] = string(records[i].client.name);
+						matrix[count1][11] = string(records[i].client.sername);
+						matrix[count1][12] = string(records[i].client.patronymic);
+						matrix[count1][13] = string(records[i].clientsNumber);
+						count1++;
 					}
 				}
-				sortirovka(records, size);
-			}
-			break;
+				if (!found) {
+					cout << "Записи не найдены" << endl;
+				}
+				else {
+					sortirovka(count1, size);
+				}
+				break;
 		}
 		case 2: {
 			string masterNameToSearch;
@@ -626,11 +1039,6 @@ void search(Rec* records, int size) {
 			cin >> masterPatronymicToSearch;
 
 			bool found = false;
-			if (!found) {
-				system("cls");
-				cout << "Ничего не найдено" << endl;
-			}
-			else {
 				system("cls");
 				cout << "Результаты поиска по мастеру '" << masterNameToSearch << " " << masterSernameToSearch << " " << masterPatronymicToSearch << "':" << endl;
 				cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -642,26 +1050,45 @@ void search(Rec* records, int size) {
 						cout << "|" << left << setw(5) << i + 1 << "|"
 							<< left << setw(22) << records[i].service << "|"
 							<< left << setw(15) << records[i].price << "|"
-							<< left << setw(35) << records[i].master.name << " " << records[i].master.sername << " " << records[i].master.patronymic << "|"
+							<< left << setw(35) << records[i].master.name + " " + records[i].master.sername + " " + records[i].master.patronymic << "|"
 							<< left << setw(2) << records[i].data.day << "/"
 							<< setw(2) << records[i].data.month << "/"
 							<< setw(9) << records[i].data.year << "|"
 							<< left << setw(2) << records[i].time.hours << ":"
 							<< setw(12) << records[i].time.minutes << "|"
-							<< left << setw(35) << records[i].client.name << " " << records[i].client.sername << " " << records[i].client.patronymic << "|"
+							<< left << setw(35) << records[i].client.name + " " + records[i].client.sername + " " + records[i].client.patronymic << "|"
 							<< left << setw(22) << records[i].clientsNumber << "|"
 							<< endl;
 						cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+						matrix[count1][0] = string(records[i].service);
+						matrix[count1][1] = to_string(records[i].price);
+						matrix[count1][2] = string(records[i].master.name);
+						matrix[count1][3] = string(records[i].master.sername);
+						matrix[count1][4] = string(records[i].master.patronymic);
+						matrix[count1][5] = to_string(records[i].data.day);
+						matrix[count1][6] = to_string(records[i].data.month);
+						matrix[count1][7] = to_string(records[i].data.year);
+						matrix[count1][8] = to_string(records[i].time.hours);
+						matrix[count1][9] = to_string(records[i].time.minutes);
+						matrix[count1][10] = string(records[i].client.name);
+						matrix[count1][11] = string(records[i].client.sername);
+						matrix[count1][12] = string(records[i].client.patronymic);
+						matrix[count1][13] = string(records[i].clientsNumber);
+						count1++;
 					}
 				}
-				sortirovka(records, size);
-			}
+				if (!found) {
+					cout << "Записи не найдены" << endl;
+				}
+				else {
+					sortirovka(count1, size);
+				}
 			break;
 		}
 		case 3: {
 			int dayToSearch, monthToSearch, yearToSearch;
 			system("cls");
-			cout << "Введите дату для поиска (ДД/ММ/ГГ): " << endl;
+			cout << "Введите дату для поиска (ДД/ММ/ГГГГ): " << endl;
 			do {
 				dayToSearch = correct_value();
 				cin.ignore();
@@ -671,11 +1098,6 @@ void search(Rec* records, int size) {
 			} while (!isValidDate(dayToSearch, monthToSearch, yearToSearch));
 
 			bool found = false;
-			if (!found) {
-				system("cls");
-				cout << "Ничего не найдено" << endl;
-			}
-			else {
 				system("cls");
 				cout << "Результаты поиска по дате '" << dayToSearch << "/" << monthToSearch << "/" << yearToSearch << "':" << endl;
 				cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -687,21 +1109,39 @@ void search(Rec* records, int size) {
 						cout << "|" << left << setw(5) << i + 1 << "|"
 							<< left << setw(22) << records[i].service << "|"
 							<< left << setw(15) << records[i].price << "|"
-							<< left << setw(35) << records[i].master.name << " " << records[i].master.sername << " " << records[i].master.patronymic << "|"
+							<< left << setw(35) << records[i].master.name + " " + records[i].master.sername + " " + records[i].master.patronymic << "|"
 							<< left << setw(2) << records[i].data.day << "/"
 							<< setw(2) << records[i].data.month << "/"
 							<< setw(9) << records[i].data.year << "|"
 							<< left << setw(2) << records[i].time.hours << ":"
 							<< setw(12) << records[i].time.minutes << "|"
-							<< left << setw(35) << records[i].client.name << " " << records[i].client.sername << " " << records[i].client.patronymic << "|"
+							<< left << setw(35) << records[i].client.name + " " + records[i].client.sername + " " + records[i].client.patronymic << "|"
 							<< left << setw(22) << records[i].clientsNumber << "|"
 							<< endl;
 						cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-
+						matrix[count1][0] = string(records[i].service);
+						matrix[count1][1] = to_string(records[i].price);
+						matrix[count1][2] = string(records[i].master.name);
+						matrix[count1][3] = string(records[i].master.sername);
+						matrix[count1][4] = string(records[i].master.patronymic);
+						matrix[count1][5] = to_string(records[i].data.day);
+						matrix[count1][6] = to_string(records[i].data.month);
+						matrix[count1][7] = to_string(records[i].data.year);
+						matrix[count1][8] = to_string(records[i].time.hours);
+						matrix[count1][9] = to_string(records[i].time.minutes);
+						matrix[count1][10] = string(records[i].client.name);
+						matrix[count1][11] = string(records[i].client.sername);
+						matrix[count1][12] = string(records[i].client.patronymic);
+						matrix[count1][13] = string(records[i].clientsNumber);
+						count1++;
 					}
 				}
-				sortirovka(records, size);
-			}
+				if (!found) {
+					cout << "Записи не найдены" << endl;
+				}
+				else {
+					sortirovka(count1, size);
+				}
 			break;
 		}
 		case 4: {
@@ -715,11 +1155,6 @@ void search(Rec* records, int size) {
 			} while (!isValidTime(hoursToSearch, minutesToSearch));
 
 			bool found = false;
-			if (!found) {
-				system("cls");
-				cout << "Ничего не найдено" << endl;
-			}
-			else {
 				system("cls");
 				cout << "Результаты поиска по времени '" << hoursToSearch << ":" << minutesToSearch << "':" << endl;
 				cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -731,21 +1166,39 @@ void search(Rec* records, int size) {
 						cout << "|" << left << setw(5) << i + 1 << "|"
 							<< left << setw(22) << records[i].service << "|"
 							<< left << setw(15) << records[i].price << "|"
-							<< left << setw(35) << records[i].master.name << " " << records[i].master.sername << " " << records[i].master.patronymic << "|"
+							<< left << setw(35) << records[i].master.name + " " + records[i].master.sername + " " + records[i].master.patronymic << "|"
 							<< left << setw(2) << records[i].data.day << "/"
 							<< setw(2) << records[i].data.month << "/"
 							<< setw(9) << records[i].data.year << "|"
 							<< left << setw(2) << records[i].time.hours << ":"
 							<< setw(12) << records[i].time.minutes << "|"
-							<< left << setw(35) << records[i].client.name << " " << records[i].client.sername << " " << records[i].client.patronymic << "|"
+							<< left << setw(35) << records[i].client.name + " " + records[i].client.sername + " " + records[i].client.patronymic << "|"
 							<< left << setw(22) << records[i].clientsNumber << "|"
 							<< endl;
 						cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+						matrix[count1][0] = string(records[i].service);
+						matrix[count1][1] = to_string(records[i].price);
+						matrix[count1][2] = string(records[i].master.name);
+						matrix[count1][3] = string(records[i].master.sername);
+						matrix[count1][4] = string(records[i].master.patronymic);
+						matrix[count1][5] = to_string(records[i].data.day);
+						matrix[count1][6] = to_string(records[i].data.month);
+						matrix[count1][7] = to_string(records[i].data.year);
+						matrix[count1][8] = to_string(records[i].time.hours);
+						matrix[count1][9] = to_string(records[i].time.minutes);
+						matrix[count1][10] = string(records[i].client.name);
+						matrix[count1][11] = string(records[i].client.sername);
+						matrix[count1][12] = string(records[i].client.patronymic);
+						matrix[count1][13] = string(records[i].clientsNumber);
+						count1++;
 					}
 				}
-
-				sortirovka(records, size);
-			}
+				if (!found) {
+					cout << "Записи не найдены" << endl;
+				}
+				else {
+					sortirovka(count1, size);
+				}
 			break;
 		}
 		case 5: {
@@ -761,11 +1214,6 @@ void search(Rec* records, int size) {
 			cin >> clientsPatronymicToSearch;
 
 			bool found = false;
-			if (!found) {
-				system("cls");
-				cout << "Ничего не найдено" << endl;
-			}
-			else {
 				system("cls");
 				cout << "Результаты поиска по клиенту '" << clientsNameToSearch << " " << clientsSernameToSearch << " " << clientsPatronymicToSearch << "':" << endl;
 				cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
@@ -777,21 +1225,39 @@ void search(Rec* records, int size) {
 						cout << "|" << left << setw(5) << i + 1 << "|"
 							<< left << setw(22) << records[i].service << "|"
 							<< left << setw(15) << records[i].price << "|"
-							<< left << setw(35) << records[i].master.name << " " << records[i].master.sername << " " << records[i].master.patronymic << "|"
+							<< left << setw(35) << records[i].master.name + " " + records[i].master.sername + " " + records[i].master.patronymic << "|"
 							<< left << setw(2) << records[i].data.day << "/"
 							<< setw(2) << records[i].data.month << "/"
 							<< setw(9) << records[i].data.year << "|"
 							<< left << setw(2) << records[i].time.hours << ":"
 							<< setw(12) << records[i].time.minutes << "|"
-							<< left << setw(35) << records[i].client.name << " " << records[i].client.sername << " " << records[i].client.patronymic << "|"
+							<< left << setw(35) << records[i].client.name + " " + records[i].client.sername + " " + records[i].client.patronymic << "|"
 							<< left << setw(22) << records[i].clientsNumber << "|"
 							<< endl;
 						cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+						matrix[count1][0] = string(records[i].service);
+						matrix[count1][1] = to_string(records[i].price);
+						matrix[count1][2] = string(records[i].master.name);
+						matrix[count1][3] = string(records[i].master.sername);
+						matrix[count1][4] = string(records[i].master.patronymic);
+						matrix[count1][5] = to_string(records[i].data.day);
+						matrix[count1][6] = to_string(records[i].data.month);
+						matrix[count1][7] = to_string(records[i].data.year);
+						matrix[count1][8] = to_string(records[i].time.hours);
+						matrix[count1][9] = to_string(records[i].time.minutes);
+						matrix[count1][10] = string(records[i].client.name);
+						matrix[count1][11] = string(records[i].client.sername);
+						matrix[count1][12] = string(records[i].client.patronymic);
+						matrix[count1][13] = string(records[i].clientsNumber);
+						count1++;
 					}
 				}
-
-				sortirovka(records, size);
-			}
+				if (!found) {
+					cout << "Записи не найдены" << endl;
+				}
+				else {
+					sortirovka(count1, size);
+				}
 			break;
 		}
 	} while (choice != 0);
